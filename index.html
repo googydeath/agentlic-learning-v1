@@ -1,0 +1,3330 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Agentic AI Engineering — 18-Week Execution Tracker</title>
+  <style>
+    :root {
+      --bg-primary: #f6f7f9;
+      --bg-secondary: #ffffff;
+      --bg-tertiary: #f0f2f5;
+      --bg-card: #ffffff;
+      --bg-card-hover: #f8fafc;
+      --bg-input: #ffffff;
+      --text-primary: #151a22;
+      --text-secondary: #475569;
+      --text-muted: #64748b;
+      --border-color: #dde1e7;
+      --border-subtle: #e2e8f0;
+      --accent-primary: #2457d6;
+      --accent-secondary: #1d4ed8;
+      --accent-soft: #e6edfd;
+      --accent-glow: rgba(36, 87, 214, 0.14);
+      --success: #127a4f;
+      --success-bg: #dff3ea;
+      --warning: #a15c00;
+      --warning-bg: #fdf0d8;
+      --danger: #b3261e;
+      --danger-bg: #fbe4e2;
+      --purple: #6d28d9;
+      --purple-bg: #ede9fe;
+      --cyan: #0e7490;
+      --cyan-bg: #cffafe;
+      --code-bg: #eef1f6;
+      --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.05);
+      --shadow-md: 0 4px 12px rgba(15, 23, 42, 0.08);
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 12px;
+      --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, Helvetica, Arial, sans-serif;
+      --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+    }
+
+    :root[data-theme="dark"] {
+      --bg-primary: #0e1117;
+      --bg-secondary: #161b24;
+      --bg-tertiary: #1d2430;
+      --bg-card: #161b24;
+      --bg-card-hover: #1d2430;
+      --bg-input: #0e1117;
+      --text-primary: #e8ecf2;
+      --text-secondary: #9aa5b6;
+      --text-muted: #6e7b8f;
+      --border-color: #2a3342;
+      --border-subtle: #202836;
+      --accent-primary: #6d9bff;
+      --accent-secondary: #8ab0ff;
+      --accent-soft: #1a2745;
+      --accent-glow: rgba(109, 155, 255, 0.18);
+      --success: #4fd1a0;
+      --success-bg: #10312a;
+      --warning: #f0b24a;
+      --warning-bg: #3a2d12;
+      --danger: #ff8a80;
+      --danger-bg: #3b1a18;
+      --purple: #a78bfa;
+      --purple-bg: rgba(139, 92, 246, 0.16);
+      --cyan: #22d3ee;
+      --cyan-bg: rgba(6, 182, 212, 0.16);
+      --code-bg: #222b3a;
+      --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.35);
+      --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.45);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 74px;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.55;
+      font-size: 14px;
+      padding-bottom: 48px;
+      transition: background-color 0.2s ease, color 0.2s ease;
+    }
+
+    a {
+      color: var(--accent-primary);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    code {
+      font-family: var(--font-mono);
+      font-size: 12.5px;
+      background: var(--code-bg);
+      padding: 1px 6px;
+      border-radius: 4px;
+      color: var(--accent-secondary);
+    }
+
+    /* Sticky Top Header */
+    .app-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--bg-secondary);
+      border-bottom: 1px solid var(--border-color);
+      box-shadow: var(--shadow-sm);
+      padding: 10px 20px;
+    }
+
+    .header-inner {
+      max-width: 1380px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+    }
+
+    .brand-badge {
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      color: #fff;
+      font-family: var(--font-mono);
+      font-weight: 700;
+      font-size: 11.5px;
+      padding: 4px 8px;
+      border-radius: var(--radius-sm);
+      letter-spacing: 0.4px;
+      flex-shrink: 0;
+    }
+
+    .brand-title h1 {
+      font-size: 15.5px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+
+    .brand-subtitle {
+      font-size: 12px;
+      color: var(--text-secondary);
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .save-indicator {
+      font-size: 11px;
+      font-family: var(--font-mono);
+      color: var(--success);
+      background: var(--success-bg);
+      padding: 3px 8px;
+      border-radius: 999px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-family: var(--font-sans);
+      font-size: 12px;
+      font-weight: 600;
+      padding: 6px 10px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-color);
+      background: var(--bg-card);
+      color: var(--text-primary);
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .btn:hover {
+      background: var(--bg-tertiary);
+      border-color: var(--accent-primary);
+    }
+
+    .btn-primary {
+      background: var(--accent-primary);
+      color: #fff;
+      border-color: var(--accent-primary);
+    }
+
+    .btn-primary:hover {
+      opacity: 0.92;
+      color: #fff;
+    }
+
+    .btn-danger {
+      color: var(--danger);
+    }
+
+    .btn-danger:hover {
+      background: var(--danger-bg);
+      border-color: var(--danger);
+    }
+
+    /* Two-Column Main Layout with Sticky Left Sidebar */
+    .layout {
+      display: grid;
+      grid-template-columns: 215px minmax(0, 1fr);
+      gap: 24px;
+      max-width: 1380px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    nav.side {
+      position: sticky;
+      top: 68px;
+      align-self: start;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      font-size: 13px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 10px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    nav.side a {
+      padding: 6px 10px;
+      border-radius: var(--radius-sm);
+      color: var(--text-primary);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      font-weight: 500;
+      transition: background 0.15s ease;
+    }
+
+    nav.side a:hover {
+      background: var(--bg-tertiary);
+      text-decoration: none;
+    }
+
+    nav.side a.active-nav {
+      background: var(--accent-soft);
+      color: var(--accent-primary);
+      font-weight: 700;
+    }
+
+    nav.side .sep {
+      font-size: 10.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+      padding: 10px 10px 4px;
+    }
+
+    nav.side .pct {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-secondary);
+      background: var(--bg-tertiary);
+      padding: 1px 6px;
+      border-radius: 99px;
+    }
+
+    @media (max-width: 920px) {
+      .layout {
+        grid-template-columns: 1fr;
+        padding: 14px;
+      }
+      nav.side {
+        position: static;
+        flex-direction: row;
+        overflow-x: auto;
+        padding: 8px;
+        gap: 6px;
+      }
+      nav.side .sep {
+        display: none;
+      }
+      nav.side a {
+        white-space: nowrap;
+        border: 1px solid var(--border-subtle);
+      }
+    }
+
+    main {
+      min-width: 0;
+    }
+
+    section.page-section {
+      margin-bottom: 26px;
+    }
+
+    .section-heading {
+      font-size: 17px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    /* "This Week" Spotlight Banner (#now) */
+    .now-banner {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-left: 4px solid var(--accent-primary);
+      border-radius: var(--radius-md);
+      padding: 14px 18px;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .now-banner .now-kicker {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--accent-primary);
+    }
+
+    .now-banner .now-title {
+      font-size: 16px;
+      font-weight: 700;
+      margin-top: 2px;
+    }
+
+    .now-banner .now-sub {
+      font-size: 13px;
+      color: var(--text-secondary);
+      margin-top: 2px;
+    }
+
+    /* Plan Overview Banner */
+    .plan-meta-banner {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 12px 16px;
+      margin-top: 12px;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 6px;
+      font-size: 12.5px;
+      color: var(--text-secondary);
+    }
+
+    .plan-meta-banner strong {
+      color: var(--text-primary);
+    }
+
+    /* Schedule Config Bar */
+    .schedule-bar {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+      margin-top: 12px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .schedule-bar-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .schedule-bar-title {
+      font-size: 12.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--accent-primary);
+    }
+
+    .schedule-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 185px), 1fr));
+      gap: 12px;
+      align-items: end;
+    }
+
+    .schedule-grid > *,
+    .kpi-grid > *,
+    .milestone-strip > *,
+    .info-panels-grid > *,
+    .block-schedule-strip > *,
+    .block-summary-grid > *,
+    .block-footer-grid > * {
+      min-width: 0;
+    }
+
+    .input-group {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .input-group label {
+      font-size: 11.5px;
+      font-weight: 600;
+      color: var(--text-secondary);
+    }
+
+    .input-group input,
+    .input-group select {
+      background: var(--bg-input);
+      border: 1px solid var(--border-color);
+      color: var(--text-primary);
+      padding: 7px 9px;
+      border-radius: var(--radius-sm);
+      font-family: var(--font-mono);
+      font-size: 13px;
+    }
+
+    .input-group input:focus,
+    .input-group select:focus,
+    textarea:focus {
+      outline: none;
+      border-color: var(--accent-primary);
+      box-shadow: 0 0 0 2px var(--accent-glow);
+    }
+
+    .velocity-pill {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 7px 11px;
+    }
+
+    .velocity-pill .label {
+      font-size: 10.5px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+
+    .velocity-pill .val {
+      font-family: var(--font-mono);
+      font-size: 14.5px;
+      font-weight: 700;
+      color: var(--accent-primary);
+    }
+
+    /* Executive KPI Grid */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 195px), 1fr));
+      gap: 12px;
+      margin-top: 12px;
+    }
+
+    .kpi-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 14px;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 6px;
+      min-width: 0;
+    }
+
+    .kpi-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-secondary);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .kpi-value {
+      font-family: var(--font-mono);
+      font-size: 21px;
+      font-weight: 700;
+      color: var(--text-primary);
+      line-height: 1.2;
+      overflow-wrap: anywhere;
+    }
+
+    .kpi-sub {
+      font-size: 11.5px;
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .progress-track {
+      width: 100%;
+      height: 7px;
+      background: var(--bg-tertiary);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: var(--accent-primary);
+      border-radius: 999px;
+      transition: width 0.25s ease;
+    }
+
+    .progress-fill.ok {
+      background: var(--success);
+    }
+
+    /* Milestone Checkpoint Strip */
+    .milestone-strip {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+      gap: 12px;
+      margin-top: 12px;
+    }
+
+    .milestone-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+      position: relative;
+      min-width: 0;
+    }
+
+    .milestone-card.checkpoint-warn {
+      border-left: 4px solid var(--warning);
+    }
+
+    .milestone-card.checkpoint-crit {
+      border-left: 4px solid var(--purple);
+    }
+
+    .milestone-card.checkpoint-launch {
+      border-left: 4px solid var(--success);
+    }
+
+    .milestone-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+
+    .milestone-title {
+      font-weight: 700;
+      font-size: 14px;
+      color: var(--text-primary);
+      overflow-wrap: anywhere;
+    }
+
+    .milestone-date {
+      font-family: var(--font-mono);
+      font-size: 12.5px;
+      font-weight: 700;
+      color: var(--accent-primary);
+    }
+
+    .milestone-rule {
+      font-size: 12px;
+      color: var(--text-secondary);
+      margin-top: 6px;
+      overflow-wrap: anywhere;
+    }
+
+    /* Badges & Tags */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 999px;
+      white-space: normal;
+      max-width: 100%;
+      line-height: 1.35;
+    }
+
+    .badge-success {
+      background: var(--success-bg);
+      color: var(--success);
+    }
+
+    .badge-warning {
+      background: var(--warning-bg);
+      color: var(--warning);
+    }
+
+    .badge-danger {
+      background: var(--danger-bg);
+      color: var(--danger);
+    }
+
+    .badge-info {
+      background: var(--accent-soft);
+      color: var(--accent-primary);
+    }
+
+    .badge-purple {
+      background: var(--purple-bg);
+      color: var(--purple);
+    }
+
+    .badge-neutral {
+      background: var(--bg-tertiary);
+      color: var(--text-secondary);
+      border: 1px solid var(--border-color);
+    }
+
+    .tag-pill {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      font-weight: 600;
+      background: var(--accent-soft);
+      color: var(--accent-primary);
+      padding: 1px 6px;
+      border-radius: 4px;
+      margin-right: 6px;
+    }
+
+    /* Panels & Tables */
+    .info-panels-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 400px), 1fr));
+      gap: 14px;
+    }
+
+    .panel-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      box-shadow: var(--shadow-sm);
+      min-width: 0;
+    }
+
+    .panel-card h3 {
+      font-size: 14.5px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+      color: var(--text-primary);
+    }
+
+    .data-table-wrap {
+      overflow-x: auto;
+      max-width: 100%;
+    }
+
+    table.data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12.5px;
+    }
+
+    table.data-table th,
+    table.data-table td {
+      padding: 8px 10px;
+      text-align: left;
+      border-bottom: 1px solid var(--border-subtle);
+      vertical-align: top;
+    }
+
+    table.data-table th {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-secondary);
+      background: var(--bg-tertiary);
+      font-weight: 700;
+    }
+
+    table.data-table tr:hover td {
+      background: var(--bg-card-hover);
+    }
+
+    /* Execution Block Cards */
+    .block-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      margin-bottom: 14px;
+      box-shadow: var(--shadow-sm);
+      overflow: hidden;
+      transition: border-color 0.2s ease;
+    }
+
+    .block-card.active-block {
+      border-color: var(--accent-primary);
+      box-shadow: 0 0 0 1px var(--accent-primary), var(--shadow-sm);
+    }
+
+    .block-card.slipped-block {
+      border-color: var(--danger);
+    }
+
+    .block-header {
+      padding: 14px 18px;
+      background: var(--bg-secondary);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      user-select: none;
+    }
+
+    .block-header:hover {
+      background: var(--bg-card-hover);
+    }
+
+    .block-title-area {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      flex: 1;
+      min-width: 200px;
+    }
+
+    .block-id-pill {
+      font-family: var(--font-mono);
+      font-weight: 800;
+      font-size: 12px;
+      padding: 4px 9px;
+      border-radius: var(--radius-sm);
+      background: var(--accent-primary);
+      color: #fff;
+    }
+
+    .block-title-text h3 {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .block-subtitle-meta {
+      font-size: 12px;
+      color: var(--text-secondary);
+      font-family: var(--font-mono);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 2px;
+    }
+
+    .block-controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .block-progress-mini {
+      width: 115px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .block-progress-mini span {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      text-align: right;
+      color: var(--text-secondary);
+    }
+
+    .chevron-icon {
+      font-size: 13px;
+      color: var(--text-secondary);
+      transition: transform 0.18s ease;
+    }
+
+    .block-card.collapsed .chevron-icon {
+      transform: rotate(-90deg);
+    }
+
+    .block-card.collapsed .block-body {
+      display: none;
+    }
+
+    .block-body {
+      padding: 16px 18px 18px;
+      border-top: 1px solid var(--border-subtle);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .block-schedule-strip {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 160px), 1fr));
+      gap: 10px;
+      background: var(--bg-tertiary);
+      padding: 10px 14px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-subtle);
+    }
+
+    .schedule-stat {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      min-width: 0;
+    }
+
+    .schedule-stat .stat-label {
+      font-size: 10.5px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+
+    .schedule-stat .stat-value {
+      font-family: var(--font-mono);
+      font-size: 12.5px;
+      font-weight: 700;
+      color: var(--text-primary);
+      overflow-wrap: anywhere;
+    }
+
+    /* Block Summary Grid (Grounded in Plan) */
+    .block-summary-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+      gap: 12px;
+    }
+
+    .summary-box {
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border-subtle);
+      border-top: 3px solid var(--accent-primary);
+      border-radius: var(--radius-sm);
+      padding: 12px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      min-width: 0;
+      overflow-wrap: anywhere;
+    }
+
+    .summary-box.target-box {
+      border-top-color: var(--success);
+    }
+
+    .summary-box.learn-box {
+      border-top-color: var(--purple);
+    }
+
+    .summary-box-title {
+      font-size: 11.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-primary);
+    }
+
+    .summary-box p {
+      font-size: 12.5px;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    .summary-box ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      font-size: 12.5px;
+      color: var(--text-secondary);
+    }
+
+    .summary-box ul li {
+      position: relative;
+      padding-left: 13px;
+    }
+
+    .summary-box ul li::before {
+      content: "▹";
+      position: absolute;
+      left: 0;
+      color: var(--accent-primary);
+      font-weight: bold;
+    }
+
+    .hide-deep-dives .block-summary-grid {
+      display: none;
+    }
+
+    /* Clean Single-Column Task Groups (Adopted from agentic-plan-tracker.html) */
+    .task-categories-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .task-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      min-width: 0;
+    }
+
+    .task-group-title {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--accent-primary);
+      margin-bottom: 2px;
+    }
+
+    .task-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .task-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 6px 8px;
+      border-radius: var(--radius-sm);
+      transition: background 0.12s ease;
+      min-width: 0;
+    }
+
+    .task-item:hover {
+      background: var(--bg-tertiary);
+    }
+
+    .task-item.completed .task-text {
+      text-decoration: line-through;
+      color: var(--text-muted);
+    }
+
+    .task-item input[type="checkbox"] {
+      margin-top: 3px;
+      width: 16px;
+      height: 16px;
+      accent-color: var(--accent-primary);
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .task-text {
+      font-size: 13.5px;
+      color: var(--text-primary);
+      flex: 1;
+      min-width: 0;
+      overflow-wrap: anywhere;
+    }
+
+    .done-when-callout {
+      background: var(--success-bg);
+      border-left: 4px solid var(--success);
+      border-radius: var(--radius-sm);
+      padding: 10px 14px;
+      font-size: 13px;
+    }
+
+    .checkpoint-callout {
+      background: var(--warning-bg);
+      border-left: 4px solid var(--warning);
+      border-radius: var(--radius-sm);
+      padding: 10px 14px;
+      font-size: 13px;
+    }
+
+    .info-callout {
+      background: var(--bg-tertiary);
+      border-left: 4px solid var(--accent-primary);
+      border-radius: var(--radius-sm);
+      padding: 10px 14px;
+      font-size: 13px;
+    }
+
+    .block-footer-grid {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      gap: 14px;
+      padding-top: 12px;
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    @media (max-width: 720px) {
+      .block-footer-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .hours-logger-box {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .notes-box {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .notes-box label {
+      font-size: 11.5px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .notes-box textarea {
+      width: 100%;
+      min-height: 82px;
+      background: var(--bg-input);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      color: var(--text-primary);
+      font-family: var(--font-mono);
+      font-size: 12.5px;
+      padding: 8px 10px;
+      resize: vertical;
+    }
+
+    .styled-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      font-size: 13px;
+    }
+
+    .styled-list li {
+      position: relative;
+      padding-left: 15px;
+      color: var(--text-secondary);
+    }
+
+    .styled-list li::before {
+      content: "•";
+      position: absolute;
+      left: 2px;
+      color: var(--accent-primary);
+      font-weight: bold;
+    }
+
+    .never-cut-box {
+      margin-top: 12px;
+      padding: 10px 12px;
+      border-radius: var(--radius-sm);
+      background: var(--danger-bg);
+      border-left: 4px solid var(--danger);
+      font-size: 12.5px;
+    }
+
+    .spend-input-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .spend-input-row input {
+      width: 88px;
+      background: var(--bg-input);
+      border: 1px solid var(--border-color);
+      color: var(--text-primary);
+      font-family: var(--font-mono);
+      font-size: 15px;
+      font-weight: 700;
+      padding: 3px 7px;
+      border-radius: var(--radius-sm);
+    }
+
+    .hidden-file-input {
+      display: none;
+    }
+
+    footer.app-footer {
+      max-width: 1380px;
+      margin: 0 auto;
+      padding: 0 20px;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sticky Top App Header -->
+  <header class="app-header">
+    <div class="header-inner">
+      <div class="brand-title">
+        <span class="brand-badge">18W PLAN</span>
+        <div>
+          <h1>Agentic AI Engineering — 18-Week Execution Tracker</h1>
+          <div class="brand-subtitle">Pydantic AI · Temporal + Postgres · OpenTelemetry + Arize Phoenix · ~170h Budget</div>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <span id="saveStatus" class="save-indicator" title="Automatically persisted to browser localStorage">✓ Saved</span>
+        <button class="btn" id="toggleDeepDiveBtn" type="button" title="Show or hide block overview summaries">📖 Summaries: ON</button>
+        <button class="btn" id="themeToggleBtn" type="button" title="Toggle Dark/Light Theme">☀️ / 🌙 Theme</button>
+        <button class="btn" id="expandAllBtn" type="button">Expand All</button>
+        <button class="btn" id="collapseAllBtn" type="button">Collapse All</button>
+        <button class="btn btn-primary" id="exportJsonBtn" type="button">⬇ Export JSON</button>
+        <button class="btn" id="importJsonBtn" type="button">⬆ Import JSON</button>
+        <input type="file" id="importFileInput" class="hidden-file-input" accept=".json,application/json" />
+        <button class="btn btn-danger" id="resetBtn" type="button" title="Reset all progress to defaults">Reset</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Two-Column Layout with Sticky Sidebar -->
+  <div class="layout">
+    <nav class="side" id="sideNav" aria-label="Section and Block Navigation">
+      <!-- Populated dynamically by JS -->
+    </nav>
+
+    <main>
+      <!-- SECTION 1: OVERVIEW -->
+      <section class="page-section" id="overview">
+        <!-- Calendar-Aware "This Week" Spotlight Banner -->
+        <div class="now-banner" id="nowBanner">
+          <!-- Populated dynamically by JS -->
+        </div>
+
+        <!-- Plan Goal, Budget, Approach & Changelog Banner -->
+        <div class="plan-meta-banner">
+          <p><strong>Goal:</strong> Reach production-grade competence in Python agentic systems, proven by a portfolio capstone covering both the harness layer and the distributed-systems layer.</p>
+          <p><strong>Budget:</strong> ~170 hours at 8–10 hrs/week (17 weeks + 1 buffer week). API spend ~$100–250 (my estimate; verify current model prices).</p>
+          <p><strong>Approach:</strong> Primary sources first. Build a thin capstone skeleton early, instrument it from day one, and upgrade it every block instead of studying everything and building at the end. <em>(Estimates are mine, not measured. Re-plan at each checkpoint. Links are ones I verified during research, unless marked "search".)</em></p>
+          <p style="font-size: 12px; border-top: 1px solid var(--border-subtle); padding-top: 6px;">
+            <strong>Final version: durable engine locked to Temporal. Changes since v1:</strong> observability moved into Block B; LangGraph compressed to ~9h (saved hours moved to the capstone); prompt-cache prefix stability added to Blocks A–B; TPM/cached-token accounting check added to the gateway milestone; all Week 1 decisions consolidated in one table. Weeks after Block B shifted one week earlier; the capstone gets a seventh week.
+          </p>
+        </div>
+
+        <!-- Schedule Configuration Bar (Weekday + Weekend Split) -->
+        <div class="schedule-bar" aria-label="Dynamic Schedule Configuration">
+          <div class="schedule-bar-header">
+            <div class="schedule-bar-title">⚡ Dynamic Schedule & Target-Date Calculator</div>
+            <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap; font-size: 12px; color: var(--text-secondary);">
+              <span><code>169h ÷ 18w ≈ 9.4h/wk</code> to finish on the 18-week calendar (at 8h/wk ~21.1w, at 9h/wk ~18.8w).</span>
+              <button class="btn" type="button" id="set18wPaceBtn" style="padding:3px 8px; font-size:11px;">Set 9.5h/wk Pace (5.5h M-F + 4h S-S)</button>
+            </div>
+          </div>
+
+          <div class="schedule-grid">
+            <div class="input-group">
+              <label for="startDateInput">1. Plan Start Date</label>
+              <input type="date" id="startDateInput" />
+            </div>
+
+            <div class="input-group">
+              <label for="weekdayHoursInput">2. Weekday Hours / Week (Mon–Fri)</label>
+              <input type="number" id="weekdayHoursInput" min="0" max="60" step="0.5" value="5.5" />
+            </div>
+
+            <div class="input-group">
+              <label for="weekendHoursInput">3. Weekend Hours / Week (Sat–Sun)</label>
+              <input type="number" id="weekendHoursInput" min="0" max="40" step="0.5" value="4" />
+            </div>
+
+            <div class="velocity-pill">
+              <span class="label">Weekly Velocity</span>
+              <span class="val" id="weeklyVelocityDisplay">9.5 hrs/wk</span>
+              <span style="font-size:11px; color:var(--text-secondary);" id="dailySplitDisplay">1.1h/day M-F · 2.0h/day S-S</span>
+            </div>
+
+            <div class="velocity-pill">
+              <span class="label">Velocity Duration vs 18w Calendar</span>
+              <span class="val" id="baselineFinishDisplay">—</span>
+              <span style="font-size:11px; color:var(--text-secondary);" id="velocityComparisonDisplay">Target pace: 8–10 hrs/wk</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Executive KPI Summary Cards -->
+        <div class="kpi-grid" aria-label="Executive KPI Summary">
+          <div class="kpi-card">
+            <div class="kpi-label">
+              <span>Overall Completion</span>
+              <span id="kpiTasksCountBadge" class="badge badge-info">0 / 0 items</span>
+            </div>
+            <div class="kpi-value" id="kpiOverallPct">0.0%</div>
+            <div class="progress-track">
+              <div class="progress-fill" id="kpiOverallBar" style="width: 0%"></div>
+            </div>
+            <div class="kpi-sub">
+              <span id="kpiBlocksDoneText">0 of 7 blocks completed</span>
+            </div>
+          </div>
+
+          <div class="kpi-card">
+            <div class="kpi-label">
+              <span>Hours (Approx.)</span>
+              <span class="badge badge-neutral">~170h Budget</span>
+            </div>
+            <div class="kpi-value" id="kpiHoursSummary">0.0h / 169h</div>
+            <div class="progress-track">
+              <div class="progress-fill" id="kpiHoursBar" style="width: 0%"></div>
+            </div>
+            <div class="kpi-sub">
+              <span id="kpiRemainingHoursText">169.0h remaining</span>
+              <span id="kpiActualLoggedText" style="font-family:var(--font-mono);">Logged: 0.0h</span>
+            </div>
+          </div>
+
+          <div class="kpi-card">
+            <div class="kpi-label">
+              <span>Next / Active Block</span>
+              <span id="kpiActiveBlockWeeks" class="badge badge-purple">Weeks 1–2</span>
+            </div>
+            <div class="kpi-value" id="kpiActiveBlockTitle" style="font-size: 18px;">Block A</div>
+            <div class="kpi-sub" id="kpiActiveBlockFocus">Mental models + harness part 1 (+ cache-prefix awareness)</div>
+          </div>
+
+          <div class="kpi-card">
+            <div class="kpi-label">
+              <span>Projected Finish</span>
+              <span id="kpiScheduleDeltaBadge" class="badge badge-success">On Track</span>
+            </div>
+            <div class="kpi-value" id="kpiProjectedFinishDate" style="font-size: 19px;">—</div>
+            <div class="kpi-sub">
+              <span id="kpiDaysRemainingText">— days remaining</span>
+              <span id="kpiScheduleTargetText">18w cal end: —</span>
+            </div>
+          </div>
+
+          <div class="kpi-card">
+            <div class="kpi-label">
+              <span>API Spend Tracker</span>
+              <span id="kpiSpendStatusBadge" class="badge badge-success">Within $250 Cap</span>
+            </div>
+            <div class="spend-input-row">
+              <span style="font-family:var(--font-mono); font-size:18px; font-weight:700;">$</span>
+              <input type="number" id="apiSpendInput" min="0" max="2000" step="1" value="0" aria-label="API Spend in Dollars" />
+              <span style="font-family:var(--font-mono); font-size:13px; color:var(--text-secondary);">/ $250</span>
+            </div>
+            <div class="progress-track">
+              <div class="progress-fill" id="kpiSpendBar" style="width: 0%"></div>
+            </div>
+            <div class="kpi-sub">
+              <span>Est. $100–$250</span>
+              <span id="kpiSpendRemainingText">$250 left</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 2: WEEK 1 DECISIONS -->
+      <section class="page-section" id="decisions">
+        <div class="section-heading">
+          <span>🔒 Week 1 Decisions (Finalize Before Starting)</span>
+          <div style="display:flex; gap:6px; flex-wrap:wrap;">
+            <span class="badge badge-purple">Pydantic AI</span>
+            <span class="badge badge-info">Temporal + Postgres</span>
+            <span class="badge badge-success">Arize Phoenix + OTel</span>
+            <span class="badge badge-warning">Hard Token/$ Caps (Week 2)</span>
+          </div>
+        </div>
+        <div class="panel-card">
+          <div class="data-table-wrap">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Decision</th>
+                  <th>Choice</th>
+                  <th>Notes</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Agent framework</strong></td>
+                  <td><strong>Pydantic AI</strong> (locked)</td>
+                  <td>Decoding AI course already uses it; integrates with Temporal. LangGraph is a one-week comparative study only (Block C).</td>
+                </tr>
+                <tr>
+                  <td><strong>Durable engine</strong></td>
+                  <td><strong>[x] Temporal</strong> (locked)</td>
+                  <td>Self-hosted locally with Docker Compose: Temporal Server + UI backed by Postgres, so workflow state survives full container restarts (unlike the in-memory <code>temporal server start-dev</code>). Temporal Python SDK for workflows and activities; Pydantic AI plugs in through its Temporal durability support.</td>
+                </tr>
+                <tr>
+                  <td><strong>Models in dev</strong></td>
+                  <td>Cheap/small model for iteration; frontier model only for final benchmark runs</td>
+                  <td>—</td>
+                </tr>
+                <tr>
+                  <td><strong>Hard budget caps</strong></td>
+                  <td>Per-run token and dollar caps enforced in code by Week 2</td>
+                  <td>—</td>
+                </tr>
+                <tr>
+                  <td><strong>Tracing stack</strong></td>
+                  <td>OpenTelemetry + single-container Arize Phoenix locally</td>
+                  <td>Set up in Block B.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 3: TIMELINE & CHECKPOINTS -->
+      <section class="page-section" id="timeline">
+        <div class="section-heading">
+          <span>📅 Timeline at a Glance & Checkpoints</span>
+          <span class="badge badge-neutral">Block B is heaviest (~11 hrs/wk)</span>
+        </div>
+
+        <div class="panel-card">
+          <div class="data-table-wrap">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Block</th>
+                  <th>Weeks</th>
+                  <th>Focus</th>
+                  <th>Est. h</th>
+                  <th>Logged h</th>
+                  <th>Calendar End (18w)</th>
+                  <th>At Your Pace</th>
+                  <th>Live Projected</th>
+                  <th>Status / Progress</th>
+                </tr>
+              </thead>
+              <tbody id="timelineGlanceBody">
+                <!-- Populated dynamically by JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Checkpoints 1, 2 & Final Launch Strip -->
+        <div class="milestone-strip" aria-label="Key Checkpoints and Capstone Launch">
+          <div class="milestone-card checkpoint-warn">
+            <div class="milestone-top">
+              <span class="badge badge-warning">CHECKPOINT 1 · END OF WEEK 4 (41h)</span>
+              <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+                <span class="milestone-date" id="cp1ProjectedDate">—</span>
+                <span id="cp1DeltaBadge"></span>
+              </div>
+            </div>
+            <div class="milestone-title">Harness + Skeleton + OTel Tracing</div>
+            <div class="milestone-rule">
+              <strong>Rule:</strong> If behind by more than 4 hours, skip Decoding AI lesson 8's extras and keep only record/replay. <strong>Never skip the tracing setup.</strong>
+              <div id="cp1VarianceAlert" style="margin-top:6px; font-family:var(--font-mono); font-size:11.5px;"></div>
+            </div>
+          </div>
+
+          <div class="milestone-card checkpoint-crit">
+            <div class="milestone-top">
+              <span class="badge badge-purple">CHECKPOINT 2 · END OF WEEK 8 (77h)</span>
+              <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+                <span class="milestone-date" id="cp2ProjectedDate">—</span>
+                <span id="cp2DeltaBadge"></span>
+              </div>
+            </div>
+            <div class="milestone-title">Temporal Durable Execution & Kill-Test</div>
+            <div class="milestone-rule">
+              <strong>Rule:</strong> The kill-at-every-step test must pass before moving on. If it doesn't, extend this block by a week and cut from Block E's reading list, not from this.
+              <div id="cp2VarianceAlert" style="margin-top:6px; font-family:var(--font-mono); font-size:11.5px;"></div>
+            </div>
+          </div>
+
+          <div class="milestone-card checkpoint-launch">
+            <div class="milestone-top">
+              <span class="badge badge-success">FINAL CAPSTONE LAUNCH · END OF WEEK 18 (169h)</span>
+              <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+                <span class="milestone-date" id="launchProjectedDate">—</span>
+                <span id="launchDeltaBadge"></span>
+              </div>
+            </div>
+            <div class="milestone-title">Multi-Tenant Issue-to-PR Service Published</div>
+            <div class="milestone-rule">
+              <strong>Deliverables:</strong> Public repo, architecture diagram, <code>THREAT_MODEL.md</code>, benchmark table (pass@k, pass^k, cost per task, cache hit rate), chaos-test report, demo & write-up.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 4: EXECUTION BLOCKS -->
+      <section class="page-section" id="blocks">
+        <div class="section-heading">
+          <span>🧱 Execution Blocks (Blocks A–F + Week 18 Buffer)</span>
+          <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
+            <span style="font-size:12px; color:var(--text-secondary);">Filter status:</span>
+            <select id="blockFilterSelect" style="background:var(--bg-card); color:var(--text-primary); border:1px solid var(--border-color); padding:5px 10px; border-radius:var(--radius-sm); font-size:12px;">
+              <option value="all">All Blocks (7)</option>
+              <option value="Not Started">Not Started</option>
+              <option value="In Progress">In Progress</option>
+              <option value="Completed">Completed</option>
+              <option value="Slipped">Slipped</option>
+            </select>
+          </div>
+        </div>
+
+        <div id="blocksContainer">
+          <!-- Populated dynamically by JS -->
+        </div>
+      </section>
+
+      <!-- SECTION 5: DEDICATED CHAOS TEST MATRIX (BLOCK F) -->
+      <section class="page-section" id="chaos">
+        <div class="section-heading">
+          <span>💥 Chaos Tests (Block F — Priority Order)</span>
+          <span id="chaosProgressBadge" class="badge badge-purple">0 / 12 Passed</span>
+        </div>
+
+        <div class="panel-card">
+          <p style="font-size:12.5px; color:var(--text-secondary); margin-bottom:12px;">
+            Tier 1 tests are required and count toward Block F completion. Tier 2 tests are run if time allows or using unused Week 18 buffer.
+          </p>
+
+          <h3 style="font-size:13px; color:var(--accent-primary); text-transform:uppercase; letter-spacing:0.05em; margin-bottom:8px;">
+            Tier 1 (must have)
+          </h3>
+          <div class="data-table-wrap" style="margin-bottom: 18px;">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th style="width:46px;">Pass</th>
+                  <th>Failure</th>
+                  <th>Injection</th>
+                  <th>Must hold</th>
+                  <th style="width:100px;">Status</th>
+                </tr>
+              </thead>
+              <tbody id="chaosTier1Body">
+                <!-- Populated by JS -->
+              </tbody>
+            </table>
+          </div>
+
+          <h3 style="font-size:13px; color:var(--accent-primary); text-transform:uppercase; letter-spacing:0.05em; margin-bottom:8px;">
+            Tier 2 (if time allows)
+          </h3>
+          <ul class="task-list" id="chaosTier2List">
+            <!-- Populated by JS -->
+          </ul>
+        </div>
+      </section>
+
+      <!-- SECTION 6: REFERENCE (CUT ORDER, COST CONTROL, EXTRAS, CAVEATS) -->
+      <section class="page-section" id="ref">
+        <div class="section-heading">
+          <span>📚 Reference: Cut Order, Cost Control, Extras & Caveats</span>
+        </div>
+
+        <div class="info-panels-grid">
+          <div class="panel-card">
+            <h3>
+              <span>✂️ If you fall behind (cut order)</span>
+              <span class="badge badge-warning">Scope Guardrails</span>
+            </h3>
+            <p style="font-size:12px; color:var(--text-secondary); margin-bottom:8px;">
+              Tick an item below if you formally cut it at a checkpoint:
+            </p>
+            <ul class="task-list" id="cutOrderList">
+              <!-- Populated by JS -->
+            </ul>
+            <div class="never-cut-box">
+              <strong>Never cut:</strong> tracing from Block B, the kill-at-every-step test, idempotency keys, the threat model, and pass^k measurement. These are what make the project credible.
+            </div>
+          </div>
+
+          <div class="panel-card">
+            <h3>
+              <span>💰 Cost control</span>
+              <span class="badge badge-success">~$100–250 Est.</span>
+            </h3>
+            <ul class="styled-list">
+              <li>Dev on cheap models; per-run dollar cap enforced in code.</li>
+              <li>Benchmark: 3–5 trials per task during development; larger sweeps only for final numbers.</li>
+              <li>Multi-agent runs use far more tokens than chat (~15× in Anthropic's account), so default to a single agent plus subagents only where work is truly parallel.</li>
+              <li>Prefix-stable prompts may reduce input cost where the provider supports caching. Measure your own hit rate from traces; don't assume a savings figure.</li>
+              <li>Local Docker Compose for Postgres, Redis, Phoenix, and Temporal Server + UI (Postgres-backed). The Decoding AI course lists $30 of Modal credits.</li>
+            </ul>
+          </div>
+
+          <div class="panel-card">
+            <h3>
+              <span>🧭 Optional extras (only after the capstone)</span>
+              <span class="badge badge-neutral">Post-Week 18</span>
+            </h3>
+            <ul class="task-list" id="optionalExtrasList">
+              <!-- Populated by JS -->
+            </ul>
+          </div>
+
+          <div class="panel-card">
+            <h3>
+              <span>⚠️ Caveats</span>
+              <span class="badge badge-warning">Verify in Docs</span>
+            </h3>
+            <ul class="styled-list">
+              <li>I could not verify the LangChain Academy repo's last commit.</li>
+              <li>Star counts for the Decoding AI repo differed between snapshots, so treat popularity as approximate.</li>
+              <li>Several security links are secondary write-ups; confirm against the primary papers and OWASP's own pages.</li>
+              <li>Provider prompt-caching rules and how cached tokens count toward rate limits were not researched; verify in each provider's docs.</li>
+              <li>The Temporal Docker Compose and Postgres-persistence setup was not verified in this research; follow Temporal's current documentation for images, versions and configuration.</li>
+              <li>Hours, weeks and dollars are planning estimates.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <footer class="app-footer">
+    All content comes from <code>agentic-ai-engineering-plan-final.md</code>. Hours, weeks, and dollars are planning estimates. Progress is stored locally in your browser (<code>localStorage</code>); use <strong>Export JSON</strong> to back it up.
+  </footer>
+
+  <script>
+    /*************************************************************************
+     * 100% FAITHFUL PLAN DATA FROM agentic-ai-engineering-plan-final.md
+     *************************************************************************/
+    const PLAN_BLOCKS = [
+      {
+        id: "A",
+        code: "Block A",
+        name: "Block A (Weeks 1–2): Mental models + harness part 1",
+        shortTitle: "Mental models + harness part 1",
+        shortFocus: "Mental models + harness part 1 (+ cache-prefix awareness)",
+        weeks: [1, 2],
+        weeksLabel: "Weeks 1–2",
+        baselineWeeksEnd: 2,
+        estHours: 19,
+        summaryWhatWeDo: "Read the 5 foundational Anthropic engineering posts in order (~6h), build lessons 1–4 of the Decoding AI Coding Agent course (~12h: architecture, agent loop, sandboxing, context engineering), fold in cache-prefix awareness (~1h), and enforce per-run token and dollar caps in code by Week 2.",
+        targetToAchieve: "Deliverables from plan: (1) Fork of the repo with one custom tool and one custom permission rule (allow/ask/deny); (2) A test asserting the system prompt and tool-definition prefix is unchanged after a compaction event; (3) A one-page note: 'what the loop, sandbox, and compaction each protect against'.",
+        whatWeLearn: [
+          "Token multiples from Anthropic's multi-agent research system (agents ~4× chat, multi-agent ~15×) and when multi-agent is a poor fit.",
+          "How the agent loop, sandboxing, permission layer (allow/ask/deny), and context compaction work in code.",
+          "Why compaction fires before the window limit, what the permission layer blocks, and what compaction must not touch.",
+          "How to keep the static system prompt and tool definitions byte-identical at the front during compaction for provider prompt caching."
+        ],
+        doneWhen: "you can explain, without looking, why compaction fires before the window limit, what the permission layer blocks, and what compaction must not touch.",
+        checkpoint: null,
+        notesPlaceholder: "Paste your Block A one-page note here: 'what the loop, sandbox, and compaction each protect against'...",
+        categories: [
+          {
+            title: "Read (≈6h), in this order",
+            items: [
+              {
+                id: "a_read_1",
+                html: `1. Building effective agents (search the title on <code>anthropic.com/engineering</code>)`
+              },
+              {
+                id: "a_read_2",
+                html: `2. Effective context engineering for AI agents (search the title on <code>anthropic.com/engineering</code>)`
+              },
+              {
+                id: "a_read_3",
+                html: `3. <a href="https://anthropic.com/engineering/effective-harnesses-for-long-running-agents" target="_blank" rel="noopener noreferrer">Effective harnesses for long-running agents ↗</a>`
+              },
+              {
+                id: "a_read_4",
+                html: `4. <a href="https://www.anthropic.com/engineering/multi-agent-research-system" target="_blank" rel="noopener noreferrer">How we built our multi-agent research system ↗</a>: note the token multiples (agents ~4× chat, multi-agent ~15×) and when multi-agent is a poor fit.`
+              },
+              {
+                id: "a_read_5",
+                html: `5. <a href="https://anthropic.com/engineering/demystifying-evals-for-ai-agents" target="_blank" rel="noopener noreferrer">Demystifying evals for AI agents ↗</a>`
+              }
+            ]
+          },
+          {
+            title: "Build (≈12h)",
+            items: [
+              {
+                id: "a_build_1",
+                html: `<a href="https://github.com/decodingai-magazine/building-a-coding-agent-from-scratch-course" target="_blank" rel="noopener noreferrer">Building a Coding Agent From Scratch ↗</a>, lessons 1–4 (architecture, agent loop, sandboxing, context engineering).`
+              },
+              {
+                id: "a_build_2",
+                html: `Get it running with the free-tier provider first.`
+              },
+              {
+                id: "a_build_3",
+                html: `Don't just read the code. Modify it.`
+              },
+              {
+                id: "a_build_4",
+                html: `The course ships with Opik tracing. Keep it for the course exercises; the capstone uses OpenTelemetry (Block B).`
+              }
+            ]
+          },
+          {
+            title: "Cache-prefix awareness (≈1h, folded into lesson 4) & Week 2 Guardrail",
+            items: [
+              {
+                id: "a_cache_1",
+                html: `Provider prompt caching generally depends on a stable prompt prefix. Read each provider's caching docs for your chosen model (search <code>"&lt;provider&gt; prompt caching"</code>); I did not verify provider-specific rules or savings figures.`
+              },
+              {
+                id: "a_cache_2",
+                html: `While reading the compaction code, identify what it rewrites. Goal: static system prompt and tool definitions stay byte-identical at the front, and only the dynamic history is compacted.`
+              },
+              {
+                id: "a_week2_caps",
+                html: `<span class="tag-pill">By Week 2</span>Enforce per-run token and dollar hard budget caps in code.`
+              }
+            ]
+          },
+          {
+            title: "Deliverables",
+            items: [
+              {
+                id: "a_deliv_1",
+                html: `Fork of the repo with one custom tool and one custom permission rule (allow/ask/deny).`
+              },
+              {
+                id: "a_deliv_2",
+                html: `A test asserting the system prompt and tool-definition prefix is unchanged after a compaction event.`
+              },
+              {
+                id: "a_deliv_3",
+                html: `A one-page note: "what the loop, sandbox, and compaction each protect against".`
+              }
+            ]
+          }
+        ]
+      },
+      {
+        id: "B",
+        code: "Block B",
+        name: "Block B (Weeks 3–4): Harness part 2 + capstone skeleton + observability",
+        shortTitle: "Harness part 2 + skeleton + OTel",
+        shortFocus: "Harness part 2 + capstone skeleton + observability",
+        weeks: [3, 4],
+        weeksLabel: "Weeks 3–4",
+        baselineWeeksEnd: 4,
+        estHours: 22,
+        summaryWhatWeDo: "Complete Decoding AI lessons 5–8 (~12h: subagents, remote headless mode, evals, replay), create the Capstone Skeleton in a new repo (~6h: FastAPI job endpoint, Postgres jobs table with transactional outbox, stub agent worker, and Docker Compose with app Postgres, Postgres-backed Temporal Server + UI, and Arize Phoenix), and instrument OpenTelemetry + OTLP GenAI spans (~3–4h).",
+        targetToAchieve: "Deliverables from plan: forked harness with replay working; a skeleton that runs end to end with a fake agent; a Phoenix trace of one full job (API → outbox → worker → stub tool calls).",
+        whatWeLearn: [
+          "Running subagent fan-out and reading traces while keeping each subagent's static prefix (system prompt + tools) stable and separate from task-specific content.",
+          "Recording a run and replaying it with a swapped model.",
+          "Building an end-to-end job pipeline (FastAPI → Postgres transactional outbox → worker) and self-hosting Temporal Server + UI backed by Postgres and Arize Phoenix in Docker Compose.",
+          "Emitting OpenTelemetry GenAI-convention spans (job, agent invocation, tool call, model call with token counts and cached-token counts where reported)."
+        ],
+        doneWhen: null,
+        checkpoint: {
+          id: "cp1_passed",
+          title: "Checkpoint 1 (end of Week 4)",
+          text: "If behind by more than 4 hours, skip Decoding AI lesson 8's extras and keep only record/replay. Never skip the tracing setup."
+        },
+        notesPlaceholder: "Paste links to your Capstone Skeleton repo, Docker Compose configuration notes, and Arize Phoenix trace notes...",
+        categories: [
+          {
+            title: "Build (≈12h): Decoding AI lessons 5–8",
+            items: [
+              {
+                id: "b_build_1",
+                html: `<a href="https://github.com/decodingai-magazine/building-a-coding-agent-from-scratch-course" target="_blank" rel="noopener noreferrer">Decoding AI lessons 5–8 ↗</a> (subagents, remote headless mode, evals, replay).`
+              },
+              {
+                id: "b_build_2",
+                html: `Run subagent fan-out on one task and read the traces.`
+              },
+              {
+                id: "b_build_3",
+                html: `Record a run, then replay it with a swapped model.`
+              },
+              {
+                id: "b_build_4",
+                html: `Keep each subagent's static prefix (system prompt + tools) stable and separate from its task-specific content.`
+              }
+            ]
+          },
+          {
+            title: "Capstone skeleton (≈6h): in a new repo, create",
+            items: [
+              {
+                id: "b_skel_1",
+                html: `FastAPI endpoint that accepts a "job".`
+              },
+              {
+                id: "b_skel_2",
+                html: `Postgres <code>jobs</code> table with a transactional outbox pattern.`
+              },
+              {
+                id: "b_skel_3",
+                html: `One worker that runs a <strong>stub agent</strong> (a fixed script) and writes results.`
+              },
+              {
+                id: "b_skel_4",
+                html: `Docker Compose for the whole thing: app Postgres, <strong>Temporal Server + Temporal UI backed by Postgres</strong> (use a separate database or schema from your app tables, with a named volume so data persists), and Phoenix (below). Follow Temporal's current docs for the Postgres-backed Docker Compose setup (search <code>"Temporal docker-compose Postgres"</code>); I did not verify the exact compose files or images here. Allow ~1–2h. If Checkpoint 1 shows you're behind, make this the first task of Block D instead, but the stack must be running before you write any workflow code.`
+              }
+            ]
+          },
+          {
+            title: "Observability (≈3–4h)",
+            items: [
+              {
+                id: "b_obs_1",
+                html: `Add the OpenTelemetry SDK and OTLP exporter to the API and worker. Emit GenAI-convention spans: one parent span per job, one per agent invocation, one per tool call, one per model call, with token counts. See <a href="https://dev.to/gabrielanhaia/opentelemetry-genai-semantic-conventions-your-llm-traces-should-look-like-this-in-2026-3ff6" target="_blank" rel="noopener noreferrer">OTel GenAI conventions ↗</a>. Pin library versions (the <code>gen_ai.*</code> namespace is still experimental).`
+              },
+              {
+                id: "b_obs_2",
+                html: `Run Arize Phoenix as a single container in Docker Compose. Check Phoenix's current self-hosting docs for the image and ports (search <code>"Arize Phoenix self-hosting"</code>); an OTLP endpoint is all the app needs.`
+              },
+              {
+                id: "b_obs_3",
+                html: `Record cached-token counts on model-call spans where the provider reports them, so cache hit rates are visible from week 4 onward.`
+              }
+            ]
+          },
+          {
+            title: "Deliverables",
+            items: [
+              {
+                id: "b_deliv_1",
+                html: `Forked harness with replay working.`
+              },
+              {
+                id: "b_deliv_2",
+                html: `A skeleton that runs end to end with a fake agent.`
+              },
+              {
+                id: "b_deliv_3",
+                html: `A Phoenix trace of one full job (API → outbox → worker → stub tool calls).`
+              }
+            ]
+          }
+        ]
+      },
+      {
+        id: "C",
+        code: "Block C",
+        name: "Block C (Week 5): LangGraph, compressed (~9h)",
+        shortTitle: "LangGraph, compressed",
+        shortFocus: "LangGraph, compressed",
+        weeks: [5, 5],
+        weeksLabel: "Week 5",
+        baselineWeeksEnd: 5,
+        estHours: 9,
+        summaryWhatWeDo: "Study LangGraph v1 release notes and LangChain Academy modules 1–4 (~3–4h, skimming state, reducers, and subgraphs while skipping prebuilt-agent lessons), build one small workflow (plan → act → human approval → finish) with a PostgresSaver checkpointer and interrupt/resume (~4–5h), kill the process at each node boundary, and write a durability comparison note (~1h).",
+        targetToAchieve: "Deliverable from plan (~1h): a durability comparison note: what a LangGraph checkpoint saves vs. what a durable engine records, and what breaks on a mid-node kill. This note is your interview-ready evidence.",
+        whatWeLearn: [
+          "LangGraph v1 changes (create_react_agent deprecated in favor of create_agent with middleware; graph primitives unchanged) and core state, reducers, and subgraphs.",
+          "How PostgresSaver checkpointing and interrupt/resume work across node boundaries.",
+          "Exactly what state survives at a node boundary and what does not, and what breaks on a mid-node kill compared to a durable execution engine."
+        ],
+        doneWhen: "you can state exactly what state survives at a node boundary and what does not.",
+        checkpoint: null,
+        notesPlaceholder: "Write your interview-ready Durability Comparison Note here: what a LangGraph checkpoint saves vs. what a durable engine records, and what breaks on a mid-node kill...",
+        categories: [
+          {
+            title: "Study (≈3–4h)",
+            items: [
+              {
+                id: "c_study_1",
+                html: `<a href="https://docs.langchain.com/oss/python/releases/langgraph-v1" target="_blank" rel="noopener noreferrer">LangGraph v1 release notes ↗</a>: <code>create_react_agent</code> is deprecated in favor of <code>create_agent</code> with middleware; graph primitives are unchanged.`
+              },
+              {
+                id: "c_study_2",
+                html: `<a href="https://academy.langchain.com/courses/intro-to-langgraph" target="_blank" rel="noopener noreferrer">Intro to LangGraph (LangChain Academy) ↗</a>, modules 1–4: skim state, reducers, subgraphs. Skip prebuilt-agent lessons.`
+              },
+              {
+                id: "c_study_3",
+                html: `Use the current docs for Postgres checkpointing. I could not confirm the Academy repo covers it, and could not verify the repo's last update.`
+              }
+            ]
+          },
+          {
+            title: "Build (≈4–5h)",
+            items: [
+              {
+                id: "c_build_1",
+                html: `One small workflow (plan → act → human approval → finish) in LangGraph with a <code>PostgresSaver</code> checkpointer and an interrupt/resume.`
+              },
+              {
+                id: "c_build_2",
+                html: `Kill the process at each node boundary and observe what is and isn't restored.`
+              }
+            ]
+          },
+          {
+            title: "Deliverable (≈1h)",
+            items: [
+              {
+                id: "c_deliv_1",
+                html: `A durability comparison note: what a LangGraph checkpoint saves vs. what a durable engine records, and what breaks on a mid-node kill. This note is your interview-ready evidence.`
+              }
+            ]
+          }
+        ]
+      },
+      {
+        id: "D",
+        code: "Block D",
+        name: "Block D (Weeks 6–8): Durable execution",
+        shortTitle: "Durable execution (Temporal)",
+        shortFocus: "Durable execution",
+        weeks: [6, 8],
+        weeksLabel: "Weeks 6–8",
+        baselineWeeksEnd: 8,
+        estHours: 27,
+        summaryWhatWeDo: "Study Pydantic AI's Temporal durable execution docs, the Gemini + Temporal tutorial, Temporal for AI agents, and Temporal Python SDK docs (~15–20h), then execute the 7 build steps (~8h) on your Compose-hosted, Postgres-backed Temporal server: durable workflow wrapper, idempotency keys on side-effecting tools, restart-surviving human-approval wait, workflow versioning, randomized worker kill testing, Phoenix trace verification, and the full Compose stack restart-survival test.",
+        targetToAchieve: "Deliverables from plan: skeleton with durable workflows, idempotent tools, and a kill-test script. Checkpoint 2 rule: The kill-at-every-step test must pass before moving on.",
+        whatWeLearn: [
+          "How Pydantic AI plugs into Temporal for durable execution and why Compose-hosted Postgres persistence is required over in-memory dev mode.",
+          "Why Temporal activities are at-least-once and how to design every side-effecting activity (PR, comment, push) for idempotency.",
+          "Temporal Python SDK determinism rules, activity retries and timeouts, human-approval waits across restarts, and workflow versioning while an old run is mid-flight.",
+          "Verifying zero duplicate side effects under randomized step-boundary worker kills and full Compose stack restarts."
+        ],
+        doneWhen: null,
+        checkpoint: {
+          id: "cp2_passed",
+          title: "Checkpoint 2 (end of Week 8)",
+          text: "The kill-at-every-step test must pass before moving on. If it doesn't, extend this block by a week and cut from Block E's reading list, not from this."
+        },
+        notesPlaceholder: "Document your Temporal workflow determinism rules, idempotency keys, workflow versioning notes, and kill-test script results...",
+        categories: [
+          {
+            title: "Engine: Temporal, self-hosted in Docker Compose (Temporal Server + UI backed by Postgres)",
+            items: [
+              {
+                id: "d_study_1",
+                html: `<a href="https://pydantic.dev/docs/ai/harness/durable-execution/" target="_blank" rel="noopener noreferrer">Pydantic AI durable execution docs ↗</a>: use the Temporal sections.`
+              },
+              {
+                id: "d_study_2",
+                html: `<a href="https://ai.google.dev/gemini-api/docs/temporal-example" target="_blank" rel="noopener noreferrer">Durable AI agent with Gemini and Temporal ↗</a>: the tutorial uses <code>temporal server start-dev</code>, which keeps state in memory by default. Run it once to learn the model, then point your worker at the Compose-hosted, Postgres-backed server for all capstone work.`
+              },
+              {
+                id: "d_study_3",
+                html: `<a href="https://activewizards.com/blog/indestructible-ai-agents-a-guide-to-using-temporal/" target="_blank" rel="noopener noreferrer">Temporal for AI agents ↗</a>: activities are at-least-once, so design every side-effecting activity for idempotency.`
+              },
+              {
+                id: "d_study_4",
+                html: `Temporal's own docs for the Python SDK: determinism rules, activity retries and timeouts, and workflow versioning (search <code>"Temporal Python SDK versioning"</code>).`
+              }
+            ]
+          },
+          {
+            title: "Study (≈15–20h) and build (≈8h)",
+            items: [
+              {
+                id: "d_build_1",
+                html: `1. Wrap the skeleton's stub agent in a durable workflow.`
+              },
+              {
+                id: "d_build_2",
+                html: `2. Add <strong>idempotency keys</strong> to every side-effecting tool (PR, comment, push).`
+              },
+              {
+                id: "d_build_3",
+                html: `3. Implement a human-approval wait that survives a restart.`
+              },
+              {
+                id: "d_build_4",
+                html: `4. Learn <strong>workflow versioning</strong>: deploy changed code while an old run is mid-flight.`
+              },
+              {
+                id: "d_build_5",
+                html: `5. Kill the worker at randomized step boundaries and assert no duplicate side effects.`
+              },
+              {
+                id: "d_build_6",
+                html: `6. Confirm traces show workflow steps and retries (they should already be flowing to Phoenix).`
+              },
+              {
+                id: "d_build_7",
+                html: `7. <strong>Restart-survival test:</strong> start a workflow, then stop the entire Compose stack (Temporal Server, UI, Postgres) without deleting volumes, bring it back, and assert the workflow resumes and finishes with no duplicated side effects. Then repeat after killing only the worker. Both must pass.`
+              }
+            ]
+          },
+          {
+            title: "Deliverables",
+            items: [
+              {
+                id: "d_deliv_1",
+                html: `Skeleton with durable workflows, idempotent tools, and a kill-test script.`
+              }
+            ]
+          }
+        ]
+      },
+      {
+        id: "E",
+        code: "Block E",
+        name: "Block E (Weeks 9–10): Security + evals",
+        shortTitle: "Security + evals",
+        shortFocus: "Security + evals",
+        weeks: [9, 10],
+        weeksLabel: "Weeks 9–10",
+        baselineWeeksEnd: 10,
+        estHours: 18,
+        summaryWhatWeDo: "Study agent security (~8–10h: lethal trifecta, prompt-injection design patterns, architectural isolation, OWASP Agentic Top 10 & MCP Top 10) and build a written threat model + small injection test set (poisoned issue text, README, tool output). Study agentic evals (~8–10h: Husain & Shankar's evals FAQ and email course, pass@k vs pass^k) and build a 25–30 task golden benchmark with deterministic graders plus a failure taxonomy from 30+ Phoenix transcripts.",
+        targetToAchieve: "Deliverables from plan: THREAT_MODEL.md, benchmark with a baseline pass@k and pass^k number.",
+        whatWeLearn: [
+          "Which lethal trifecta legs exist in the capstone, where untrusted text enters, and how prompt injection is fixed by architecture rather than a filter.",
+          "Using OWASP Top 10 for Agentic Applications and OWASP MCP Top 10 (beta, v0.1) as practical security checklists.",
+          "Building a 25–30 task golden benchmark with deterministic graders (tests fail before, pass after) and measuring pass@k vs pass^k.",
+          "Reading 30+ real transcripts in Phoenix to write your own failure taxonomy before writing any LLM judge."
+        ],
+        doneWhen: null,
+        checkpoint: null,
+        notesPlaceholder: "Link to your THREAT_MODEL.md, record your failure taxonomy from reading 30+ Phoenix transcripts, and log baseline pass@k and pass^k numbers...",
+        categories: [
+          {
+            title: "Security (≈8–10h)",
+            items: [
+              {
+                id: "e_sec_1",
+                html: `<a href="https://simonw.substack.com/p/the-lethal-trifecta-for-ai-agents" target="_blank" rel="noopener noreferrer">The lethal trifecta for AI agents ↗</a>`
+              },
+              {
+                id: "e_sec_2",
+                html: `<a href="https://simonwillison.net/2025/Jun/13/prompt-injection-design-patterns/" target="_blank" rel="noopener noreferrer">Design Patterns for Securing LLM Agents against Prompt Injections ↗</a>`
+              },
+              {
+                id: "e_sec_3",
+                html: `"Prompt Injection Isn't Fixed by a Filter. It's Fixed by Architecture" (dev.to, by Eugen Ullrich; secondary source, search the title to find the rendered post)`
+              },
+              {
+                id: "e_sec_4",
+                html: `<a href="https://koi.ai/blog/owasp-agentic-ai-top-10-a-practical-security-guide" target="_blank" rel="noopener noreferrer">OWASP Top 10 for Agentic Applications, practical guide ↗</a> (secondary; read OWASP's own publication too)`
+              },
+              {
+                id: "e_sec_5",
+                html: `<a href="https://owasp.org/www-project-mcp-top-10/" target="_blank" rel="noopener noreferrer">OWASP MCP Top 10 ↗</a> (beta, v0.1: use as a checklist, not a standard)`
+              },
+              {
+                id: "e_sec_build",
+                html: `<strong>Build:</strong> a written threat model for the capstone (which trifecta legs exist, where untrusted text enters, how it's isolated) and a small injection test set (poisoned issue text, README, tool output).`
+              }
+            ]
+          },
+          {
+            title: "Evals (≈8–10h)",
+            items: [
+              {
+                id: "e_eval_1",
+                html: `<a href="https://hamel.dev/blog/posts/evals-faq/evals-faq.pdf" target="_blank" rel="noopener noreferrer">Hamel Husain and Shreya Shankar's evals FAQ ↗</a>`
+              },
+              {
+                id: "e_eval_2",
+                html: `<a href="https://ai.hamel.dev/eval-course" target="_blank" rel="noopener noreferrer">Free 17-part evals email course ↗</a>`
+              },
+              {
+                id: "e_eval_3",
+                html: `<a href="https://theworkingprototype.substack.com/p/how-to-do-agentic-evals" target="_blank" rel="noopener noreferrer">How to do agentic evals ↗</a> (pass@k vs pass^k)`
+              },
+              {
+                id: "e_eval_build_1",
+                html: `<strong>Build:</strong> 25–30 task golden benchmark with deterministic graders (tests fail before, pass after).`
+              },
+              {
+                id: "e_eval_build_2",
+                html: `Read 30+ real transcripts in Phoenix and write your own failure taxonomy before writing any LLM judge.`
+              }
+            ]
+          },
+          {
+            title: "Deliverables",
+            items: [
+              {
+                id: "e_deliv_1",
+                html: `<code>THREAT_MODEL.md</code>`
+              },
+              {
+                id: "e_deliv_2",
+                html: `Benchmark with a baseline pass@k and pass^k number.`
+              }
+            ]
+          }
+        ]
+      },
+      {
+        id: "F",
+        code: "Block F",
+        name: "Block F (Weeks 11–17): Capstone build (~65h)",
+        shortTitle: "Capstone build",
+        shortFocus: "Capstone build + chaos tests + write-up (includes ~8h extra buffer)",
+        weeks: [11, 17],
+        weeksLabel: "Weeks 11–17",
+        baselineWeeksEnd: 17,
+        estHours: 65,
+        systemIntro: "<strong>System:</strong> multi-tenant issue-to-PR service. FastAPI → Postgres outbox → durable workflow → orchestrator + sandboxed worker subagents → deterministic verification gate → human approval → PR.",
+        summaryWhatWeDo: "Build the multi-tenant issue-to-PR service (FastAPI → Postgres outbox → durable workflow → orchestrator + sandboxed worker subagents → deterministic verification gate → human approval → PR) across 4 sub-milestones: (1) Weeks 11–12 (~20h): real harness in sandboxes + verification gate + stable prefixes; (2) Week 13 (~12h): provider gateway with dual RPM/TPM token bucket, reserve-then-refund, per-tenant fair share, and per-provider cached-token accounting; (3) Week 14 (~11h): cost-per-job reporting from traces + hybrid retrieval (BM25 + pgvector) + episodic store; (4) Weeks 15–17 (~22h): chaos suite, CI gating on pass^k, README and write-up.",
+        targetToAchieve: "Deliverables from plan: public repo, architecture diagram, THREAT_MODEL.md, benchmark table (pass@k, pass^k, cost per task, cache hit rate if the provider reports it), chaos-test report, and a short 'what I'd change' section.",
+        whatWeLearn: [
+          "Running the real harness in sandboxes (network denied, no credentials inside) with a deterministic fail-before/pass-after verification gate and stable static prefixes.",
+          "Engineering a multi-tenant provider gateway (dual RPM/TPM token bucket with reserve-then-refund, Redis/Postgres shared state, fair share, bounded concurrency, retry-after, jitter, capped retries, and per-provider cached-token accounting).",
+          "Building cost-per-job dashboards from traces, hybrid repo retrieval (BM25 + pgvector embeddings), and an episodic store of past runs.",
+          "Validating system invariants under Tier 1 (and optional Tier 2) chaos tests and gating CI on pass^k."
+        ],
+        doneWhen: null,
+        checkpoint: null,
+        notesPlaceholder: "Track provider cached-token TPM/RPM accounting rules, benchmark table numbers (pass@k, pass^k, cost per task, cache hit rate), and 'what I'd change' section notes...",
+        categories: [
+          {
+            title: "Sub-milestones (Weeks 11–17)",
+            items: [
+              {
+                id: "f_sub_1",
+                html: `<span class="tag-pill">Weeks 11–12 · ~20h</span>Replace the stub with the real harness in sandboxes (network denied, no credentials inside). Verification gate: tests must fail before and pass after. Keep static prompt/tool prefixes stable across compaction and subagent spawns.`
+              },
+              {
+                id: "f_sub_2",
+                html: `<span class="tag-pill">Week 13 · ~12h</span><strong>Provider gateway:</strong> dual RPM/TPM token bucket with reserve-then-refund, shared state (Redis or Postgres), per-tenant fair share, bounded concurrency, honor <code>retry-after</code>, jitter, capped retries. See <a href="https://gravitee.io/corpus/gen-770/doorway-to-fame/rate-limiting-for-llms.html" target="_blank" rel="noopener noreferrer">Rate limiting for LLMs ↗</a> and <a href="https://dev.to/aakash_gour/rate-limiting-llm-apis-in-production-patterns-that-dont-lose-your-data-2g18" target="_blank" rel="noopener noreferrer">production patterns ↗</a>.`
+              },
+              {
+                id: "f_sub_3",
+                html: `<span class="tag-pill">Week 13</span><strong>Before writing the accounting logic, verify how each provider you use counts cached tokens against its TPM and RPM limits</strong> (I have not verified this; it varies by provider). Build the reservation and refund code so the cached-token rule is a per-provider setting, and test it against a fake provider for each variant.`
+              },
+              {
+                id: "f_sub_4",
+                html: `<span class="tag-pill">Week 14 · ~11h</span>Cost-per-job reporting and dashboards from the existing traces (tokens, cached tokens, dollars, retries per job and per tenant). Memory: hybrid retrieval over the repo (BM25 + embeddings in pgvector); episodic store of past runs.`
+              },
+              {
+                id: "f_sub_5",
+                html: `<span class="tag-pill">Weeks 15–17 · ~22h</span>Chaos suite (below), CI gating on pass^k, README and write-up. Includes ~8h of extra buffer for overruns.`
+              }
+            ]
+          },
+          {
+            title: "Deliverables",
+            items: [
+              {
+                id: "f_deliv_1",
+                html: `Public repo.`
+              },
+              {
+                id: "f_deliv_2",
+                html: `Architecture diagram.`
+              },
+              {
+                id: "f_deliv_3",
+                html: `<code>THREAT_MODEL.md</code>.`
+              },
+              {
+                id: "f_deliv_4",
+                html: `Benchmark table (pass@k, pass^k, cost per task, cache hit rate if the provider reports it).`
+              },
+              {
+                id: "f_deliv_5",
+                html: `Chaos-test report.`
+              },
+              {
+                id: "f_deliv_6",
+                html: `A short "what I'd change" section.`
+              }
+            ]
+          }
+        ]
+      },
+      {
+        id: "Buffer",
+        code: "Buffer",
+        name: "Buffer week (Week 18): Slip, polish, publish (~9h)",
+        shortTitle: "Buffer week",
+        shortFocus: "Slip, polish, publish",
+        weeks: [18, 18],
+        weeksLabel: "Week 18",
+        baselineWeeksEnd: 18,
+        estHours: 9,
+        summaryWhatWeDo: "Fix flaky tests, finish the write-up, record a short demo, and publish. Any unused buffer goes into Tier 2 chaos tests.",
+        targetToAchieve: "Published capstone repo, finished write-up, recorded short demo, and any unused buffer invested in Tier 2 chaos tests.",
+        whatWeLearn: [
+          "Stabilizing flaky distributed/agentic tests, completing the final engineering write-up and demo, and exercising Tier 2 failure modes if buffer remains."
+        ],
+        doneWhen: null,
+        checkpoint: null,
+        notesPlaceholder: "Demo recording notes, publication links, and Tier 2 test notes...",
+        categories: [
+          {
+            title: "Week 18 (~9h)",
+            items: [
+              {
+                id: "buf_1",
+                html: `Fix flaky tests.`
+              },
+              {
+                id: "buf_2",
+                html: `Finish the write-up.`
+              },
+              {
+                id: "buf_3",
+                html: `Record a short demo.`
+              },
+              {
+                id: "buf_4",
+                html: `Publish.`
+              },
+              {
+                id: "buf_5",
+                html: `Unused buffer goes into Tier 2 tests.`
+              }
+            ]
+          }
+        ]
+      }
+    ];
+
+    const CHAOS_TIER_1 = [
+      {
+        id: "chaos_t1_1",
+        failure: "Worker killed mid-tool-call",
+        injection: "SIGKILL at randomized step boundaries",
+        mustHold: "Resumes; zero duplicate side effects"
+      },
+      {
+        id: "chaos_t1_2",
+        failure: "Crash after effect, before result recorded",
+        injection: "Kill between the two",
+        mustHold: "Idempotency key prevents the second effect"
+      },
+      {
+        id: "chaos_t1_3",
+        failure: "429 storm",
+        injection: "Fake provider returns 429 with <code>retry-after</code>",
+        mustHold: "No retry storm; bounded queue; other tenants unaffected"
+      },
+      {
+        id: "chaos_t1_4",
+        failure: "One tenant saturates TPM",
+        injection: "Flood of large-context jobs",
+        mustHold: "Fair share holds"
+      },
+      {
+        id: "chaos_t1_5",
+        failure: "Indirect prompt injection",
+        injection: "Poisoned issue, README, tool output",
+        mustHold: "Blocked by architecture (egress denied, no secrets), not a filter"
+      },
+      {
+        id: "chaos_t1_6",
+        failure: "Runaway loop",
+        injection: "Tool that never converges",
+        mustHold: "Hard token/step budget kills run, returns partial result"
+      }
+    ];
+
+    const CHAOS_TIER_2 = [
+      {
+        id: "chaos_t2_1",
+        html: "Provider timeout or partial stream (no double billing)"
+      },
+      {
+        id: "chaos_t2_2",
+        html: "Postgres failover or lock contention (no lost jobs, no duplicate leases)"
+      },
+      {
+        id: "chaos_t2_3",
+        html: "Approval arrives after a deploy (old runs resume on their original workflow version)"
+      },
+      {
+        id: "chaos_t2_4",
+        html: "MCP tool descriptor changes after approval (hash mismatch forces re-approval)"
+      },
+      {
+        id: "chaos_t2_5",
+        html: "Compaction drops a constraint (an eval catches it), or changes the cached prefix (a test catches it)"
+      },
+      {
+        id: "chaos_t2_6",
+        html: "Model version swap (regression suite gates it)"
+      }
+    ];
+
+    const CUT_ORDER_ITEMS = [
+      {
+        id: "cut_1",
+        html: "<strong>1.</strong> Tier 2 chaos tests"
+      },
+      {
+        id: "cut_2",
+        html: "<strong>2.</strong> Memory/hybrid retrieval depth (keep a minimal version)"
+      },
+      {
+        id: "cut_3",
+        html: "<strong>3.</strong> LangGraph build exercise (keep the comparison note)"
+      },
+      {
+        id: "cut_4",
+        html: "<strong>4.</strong> Benchmark size (25 → 15 tasks)"
+      }
+    ];
+
+    const OPTIONAL_EXTRAS_ITEMS = [
+      {
+        id: "extra_1",
+        html: `The <a href="https://github.com/ai-engineering-curriculum/agentic-ai-engineer-learning" target="_blank" rel="noopener noreferrer">ai-engineering-curriculum agentic track ↗</a> as an exercise-idea checklist. Treat its content as unvetted (small repo, AI-assisted, vendor-maintained).`
+      },
+      {
+        id: "extra_2",
+        html: `Paid Maven evals course by Husain and Shreya Shankar (price not verified).`
+      }
+    ];
+
+    /*************************************************************************
+     * STATE MANAGEMENT & LOCALSTORAGE PERSISTENCE
+     *************************************************************************/
+    const STORAGE_KEY = "agentic_ai_engineering_tracker_v1";
+
+    function getDefaultStartDate() {
+      const today = new Date();
+      const yyyy = today.getFullYear();
+      const mm = String(today.getMonth() + 1).padStart(2, "0");
+      const dd = String(today.getDate()).padStart(2, "0");
+      return `${yyyy}-${mm}-${dd}`;
+    }
+
+    function createDefaultState() {
+      const blockMeta = {};
+      PLAN_BLOCKS.forEach((b, idx) => {
+        blockMeta[b.id] = {
+          status: idx === 0 ? "In Progress" : "Not Started",
+          actualHours: 0,
+          notes: "",
+          // Auto-open only Block A by default (cleaner initial view like agentic-plan-tracker.html)
+          collapsed: idx !== 0
+        };
+      });
+
+      const prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+
+      return {
+        version: 1,
+        lastSaved: new Date().toISOString(),
+        theme: prefersDark,
+        showDeepDives: true,
+        schedule: {
+          startDate: getDefaultStartDate(),
+          weekdayHours: 5.5,
+          weekendHours: 4
+        },
+        apiSpend: 0,
+        checkedItems: {},
+        blockMeta
+      };
+    }
+
+    let appState = loadState();
+
+    function loadState() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) return createDefaultState();
+        const parsed = JSON.parse(raw);
+        const def = createDefaultState();
+        return {
+          ...def,
+          ...parsed,
+          schedule: { ...def.schedule, ...(parsed.schedule || {}) },
+          checkedItems: { ...(parsed.checkedItems || {}) },
+          blockMeta: Object.keys(def.blockMeta).reduce((acc, k) => {
+            acc[k] = { ...def.blockMeta[k], ...((parsed.blockMeta && parsed.blockMeta[k]) || {}) };
+            return acc;
+          }, {})
+        };
+      } catch (err) {
+        console.warn("Could not read localStorage state, falling back to default:", err);
+        return createDefaultState();
+      }
+    }
+
+    function saveState() {
+      try {
+        appState.lastSaved = new Date().toISOString();
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(appState));
+        const el = document.getElementById("saveStatus");
+        if (el) {
+          const t = new Date(appState.lastSaved).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+          el.textContent = `✓ Saved ${t}`;
+        }
+      } catch (err) {
+        console.error("Failed to save state to localStorage:", err);
+      }
+    }
+
+    /*************************************************************************
+     * DATE PROJECTION ENGINE (Weekday/Weekend Split + 18w Calendar Comparison)
+     *************************************************************************/
+    function parseLocalDate(ymdStr) {
+      if (!ymdStr) return new Date();
+      const parts = ymdStr.split("-").map(Number);
+      return new Date(parts[0], parts[1] - 1, parts[2], 0, 0, 0, 0);
+    }
+
+    function formatShortDate(dateObj) {
+      if (!dateObj || isNaN(dateObj.getTime())) return "—";
+      return dateObj.toLocaleDateString(undefined, {
+        month: "short",
+        day: "numeric",
+        year: "numeric"
+      });
+    }
+
+    function diffDays(dateA, dateB) {
+      const msPerDay = 1000 * 60 * 60 * 24;
+      const utcA = Date.UTC(dateA.getFullYear(), dateA.getMonth(), dateA.getDate());
+      const utcB = Date.UTC(dateB.getFullYear(), dateB.getMonth(), dateB.getDate());
+      return Math.round((utcA - utcB) / msPerDay);
+    }
+
+    function addDays(dateObj, days) {
+      const d = new Date(dateObj.getTime());
+      d.setDate(d.getDate() + days);
+      return d;
+    }
+
+    /**
+     * Distributes hoursNeeded across calendar days starting from startDate
+     * respecting weekdayHoursPerWeek (Mon-Fri) and weekendHoursPerWeek (Sat-Sun).
+     */
+    function projectDateByHours(startDate, hoursNeeded, weekdayHoursPerWeek, weekendHoursPerWeek) {
+      const totalWeekly = weekdayHoursPerWeek + weekendHoursPerWeek;
+      if (totalWeekly <= 0) return null;
+      if (hoursNeeded <= 0) return new Date(startDate.getTime());
+
+      const monFriDaily = weekdayHoursPerWeek / 5.0;
+      const satSunDaily = weekendHoursPerWeek / 2.0;
+
+      let remaining = hoursNeeded;
+      let cursor = new Date(startDate.getTime());
+      let safetyCounter = 0;
+
+      while (remaining > 1e-6 && safetyCounter < 3650) {
+        const dow = cursor.getDay(); // 0 = Sun, 6 = Sat
+        const isWeekend = dow === 0 || dow === 6;
+        const cap = isWeekend ? satSunDaily : monFriDaily;
+
+        if (cap > 0) {
+          remaining -= cap;
+          if (remaining <= 1e-6) {
+            return cursor;
+          }
+        }
+        cursor.setDate(cursor.getDate() + 1);
+        safetyCounter++;
+      }
+      return cursor;
+    }
+
+    function getBlockTaskStats(block) {
+      let total = 0;
+      let completed = 0;
+      block.categories.forEach((cat) => {
+        cat.items.forEach((item) => {
+          total++;
+          if (appState.checkedItems[item.id]) completed++;
+        });
+      });
+      if (block.id === "F") {
+        CHAOS_TIER_1.forEach((c) => {
+          total++;
+          if (appState.checkedItems[c.id]) completed++;
+        });
+      }
+      const pct = total > 0 ? (completed / total) * 100 : 0;
+      const completedHoursEquiv = (pct / 100) * block.estHours;
+      const remainingHoursEquiv = Math.max(0, block.estHours - completedHoursEquiv);
+      return { total, completed, pct, completedHoursEquiv, remainingHoursEquiv };
+    }
+
+    function computeScheduleProjections() {
+      const startDate = parseLocalDate(appState.schedule.startDate);
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+
+      const weekdayHrs = Math.max(0, Number(appState.schedule.weekdayHours) || 0);
+      const weekendHrs = Math.max(0, Number(appState.schedule.weekendHours) || 0);
+      const weeklyVelocity = weekdayHrs + weekendHrs;
+
+      const dynamicAnchor = today > startDate ? today : startDate;
+
+      let cumEstHours = 0;
+      let cumRemainingHours = 0;
+      const blockProjections = {};
+
+      PLAN_BLOCKS.forEach((block) => {
+        const stats = getBlockTaskStats(block);
+        const prevEstHours = cumEstHours;
+        cumEstHours += block.estHours;
+        cumRemainingHours += stats.remainingHoursEquiv;
+
+        // 18-week fixed calendar end date for this block
+        const baseline18wDate = addDays(startDate, block.baselineWeeksEnd * 7 - 1);
+
+        // "At Your Pace" planned start/finish from Start Date
+        const plannedStart = prevEstHours === 0
+          ? new Date(startDate.getTime())
+          : projectDateByHours(startDate, prevEstHours, weekdayHrs, weekendHrs);
+        const plannedFinish = projectDateByHours(startDate, cumEstHours, weekdayHrs, weekendHrs);
+
+        // Live projected finish factoring in completed tasks
+        let projectedFinish = null;
+        if (stats.pct >= 99.99) {
+          projectedFinish = plannedFinish;
+        } else {
+          projectedFinish = projectDateByHours(dynamicAnchor, cumRemainingHours, weekdayHrs, weekendHrs);
+        }
+
+        const daysRemaining = projectedFinish ? diffDays(projectedFinish, today) : null;
+        const deltaVsPlannedDays = (projectedFinish && plannedFinish) ? diffDays(projectedFinish, plannedFinish) : null;
+        const deltaVs18wDays = projectedFinish ? diffDays(projectedFinish, baseline18wDate) : null;
+
+        blockProjections[block.id] = {
+          stats,
+          cumEstHours,
+          cumRemainingHours,
+          baseline18wDate,
+          plannedStart,
+          plannedFinish,
+          projectedFinish,
+          daysRemaining,
+          deltaVsPlannedDays,
+          deltaVs18wDays
+        };
+      });
+
+      const currentCalWeek = Math.floor(diffDays(today, startDate) / 7) + 1;
+
+      return {
+        startDate,
+        today,
+        currentCalWeek,
+        weekdayHrs,
+        weekendHrs,
+        weeklyVelocity,
+        baseline18wFinish: addDays(startDate, 18 * 7 - 1),
+        blockProjections
+      };
+    }
+
+    function formatDeltaBadge(deltaVsPlannedDays, isComplete = false) {
+      if (isComplete) {
+        return `<span class="badge badge-success">✓ Completed</span>`;
+      }
+      if (deltaVsPlannedDays === null || isNaN(deltaVsPlannedDays)) {
+        return `<span class="badge badge-danger">0h/wk Velocity</span>`;
+      }
+      if (deltaVsPlannedDays < 0) {
+        return `<span class="badge badge-success">${Math.abs(deltaVsPlannedDays)}d Ahead of Pace</span>`;
+      }
+      if (deltaVsPlannedDays === 0) {
+        return `<span class="badge badge-info">On Track (0d variance)</span>`;
+      }
+      if (deltaVsPlannedDays <= 4) {
+        return `<span class="badge badge-warning">${deltaVsPlannedDays}d Behind Pace</span>`;
+      }
+      return `<span class="badge badge-danger">${deltaVsPlannedDays}d Behind Pace</span>`;
+    }
+
+    /*************************************************************************
+     * INITIAL DOM RENDERING
+     *************************************************************************/
+    function renderStaticLists() {
+      // Cut Order List
+      const cutListEl = document.getElementById("cutOrderList");
+      cutListEl.innerHTML = CUT_ORDER_ITEMS.map((item) => {
+        const checked = !!appState.checkedItems[item.id];
+        return `
+          <li class="task-item ${checked ? "completed" : ""}" data-item-id="${item.id}">
+            <input type="checkbox" id="${item.id}" ${checked ? "checked" : ""} onchange="toggleCheckItem('${item.id}', this.checked)" />
+            <label for="${item.id}" class="task-text" style="cursor:pointer;">${item.html}</label>
+          </li>
+        `;
+      }).join("");
+
+      // Optional Extras List
+      const extrasEl = document.getElementById("optionalExtrasList");
+      extrasEl.innerHTML = OPTIONAL_EXTRAS_ITEMS.map((item) => {
+        const checked = !!appState.checkedItems[item.id];
+        return `
+          <li class="task-item ${checked ? "completed" : ""}" data-item-id="${item.id}">
+            <input type="checkbox" id="${item.id}" ${checked ? "checked" : ""} onchange="toggleCheckItem('${item.id}', this.checked)" />
+            <label for="${item.id}" class="task-text" style="cursor:pointer;">${item.html}</label>
+          </li>
+        `;
+      }).join("");
+
+      // Chaos Matrix Tier 1
+      const tier1Body = document.getElementById("chaosTier1Body");
+      tier1Body.innerHTML = CHAOS_TIER_1.map((row) => {
+        const checked = !!appState.checkedItems[row.id];
+        return `
+          <tr id="row_${row.id}">
+            <td>
+              <input type="checkbox" id="${row.id}" ${checked ? "checked" : ""} onchange="toggleCheckItem('${row.id}', this.checked)" style="width:16px;height:16px;accent-color:var(--accent-primary);cursor:pointer;" />
+            </td>
+            <td><label for="${row.id}" style="font-weight:700;cursor:pointer;">${row.failure}</label></td>
+            <td>${row.injection}</td>
+            <td>${row.mustHold}</td>
+            <td id="status_${row.id}">
+              ${checked ? '<span class="badge badge-success">✓ Verified</span>' : '<span class="badge badge-neutral">Pending</span>'}
+            </td>
+          </tr>
+        `;
+      }).join("");
+
+      // Chaos Matrix Tier 2
+      const tier2List = document.getElementById("chaosTier2List");
+      tier2List.innerHTML = CHAOS_TIER_2.map((item) => {
+        const checked = !!appState.checkedItems[item.id];
+        return `
+          <li class="task-item ${checked ? "completed" : ""}" data-item-id="${item.id}">
+            <input type="checkbox" id="${item.id}" ${checked ? "checked" : ""} onchange="toggleCheckItem('${item.id}', this.checked)" />
+            <label for="${item.id}" class="task-text" style="cursor:pointer;">${item.html}</label>
+          </li>
+        `;
+      }).join("");
+    }
+
+    function renderBlockCards() {
+      const container = document.getElementById("blocksContainer");
+      container.innerHTML = PLAN_BLOCKS.map((block) => {
+        const meta = appState.blockMeta[block.id];
+        const learnListHtml = (block.whatWeLearn || []).map((l) => `<li>${l}</li>`).join("");
+
+        const categoriesHtml = block.categories.map((cat) => {
+          const itemsHtml = cat.items.map((item) => {
+            const checked = !!appState.checkedItems[item.id];
+            return `
+              <li class="task-item ${checked ? "completed" : ""}" data-item-id="${item.id}">
+                <input type="checkbox" id="${item.id}" ${checked ? "checked" : ""} onchange="toggleCheckItem('${item.id}', this.checked)" />
+                <label for="${item.id}" class="task-text" style="cursor:pointer;">${item.html}</label>
+              </li>
+            `;
+          }).join("");
+
+          return `
+            <div class="task-group">
+              <div class="task-group-title">${cat.title}</div>
+              <ul class="task-list">
+                ${itemsHtml}
+              </ul>
+            </div>
+          `;
+        }).join("");
+
+        let checkpointHtml = "";
+        if (block.checkpoint) {
+          const cpChecked = !!appState.checkedItems[block.checkpoint.id];
+          checkpointHtml = `
+            <div class="checkpoint-callout">
+              <label style="display:flex; gap:10px; align-items:flex-start; cursor:pointer;">
+                <input type="checkbox" id="${block.checkpoint.id}" ${cpChecked ? "checked" : ""} onchange="toggleCheckItem('${block.checkpoint.id}', this.checked)" style="margin-top:3px; width:16px; height:16px; accent-color:var(--accent-primary); flex-shrink:0;" />
+                <span><strong>⚠️ ${block.checkpoint.title}:</strong> ${block.checkpoint.text}</span>
+              </label>
+            </div>
+          `;
+        }
+
+        return `
+          <article class="block-card ${meta.collapsed ? "collapsed" : ""}" id="block_card_${block.id}" data-block-id="${block.id}">
+            <div class="block-header" onclick="handleBlockHeaderClick(event, '${block.id}')">
+              <div class="block-title-area">
+                <span class="block-id-pill">${block.id === "Buffer" ? "BUF" : block.id}</span>
+                <div class="block-title-text">
+                  <h3>${block.name}</h3>
+                  <div class="block-subtitle-meta">
+                    <span>${block.weeksLabel} · ~${block.estHours}h</span>
+                    <span id="block_hdr_target_${block.id}">Target: —</span>
+                    <span id="block_hdr_delta_${block.id}"></span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="block-controls" onclick="event.stopPropagation()">
+                <select aria-label="Status for ${block.code}" id="status_select_${block.id}" onchange="updateBlockStatus('${block.id}', this.value)" style="background:var(--bg-input); color:var(--text-primary); border:1px solid var(--border-color); padding:4px 8px; border-radius:var(--radius-sm); font-size:12px; font-weight:600;">
+                  <option value="Not Started" ${meta.status === "Not Started" ? "selected" : ""}>Not Started</option>
+                  <option value="In Progress" ${meta.status === "In Progress" ? "selected" : ""}>In Progress</option>
+                  <option value="Completed" ${meta.status === "Completed" ? "selected" : ""}>Completed</option>
+                  <option value="Slipped" ${meta.status === "Slipped" ? "selected" : ""}>Slipped</option>
+                </select>
+
+                <span id="status_badge_${block.id}" class="badge badge-neutral">${meta.status}</span>
+
+                <div class="block-progress-mini">
+                  <span id="block_pct_text_${block.id}">0% (0/0)</span>
+                  <div class="progress-track">
+                    <div class="progress-fill" id="block_pct_bar_${block.id}" style="width:0%"></div>
+                  </div>
+                </div>
+
+                <button class="btn" type="button" onclick="toggleBlockCollapse('${block.id}')" style="padding:4px 8px;">
+                  <span class="chevron-icon">▼</span>
+                </button>
+              </div>
+            </div>
+
+            <div class="block-body">
+              <div class="block-schedule-strip">
+                <div class="schedule-stat">
+                  <span class="stat-label">18w Calendar End</span>
+                  <span class="stat-value" id="block_cal_${block.id}">—</span>
+                </div>
+                <div class="schedule-stat">
+                  <span class="stat-label">At Your Pace Window</span>
+                  <span class="stat-value" id="block_win_${block.id}">—</span>
+                </div>
+                <div class="schedule-stat">
+                  <span class="stat-label">Live Projected Finish</span>
+                  <span class="stat-value" id="block_proj_${block.id}">—</span>
+                </div>
+                <div class="schedule-stat">
+                  <span class="stat-label">Remaining Block Work</span>
+                  <span class="stat-value" id="block_rem_hrs_${block.id}">${block.estHours}h / ${block.estHours}h</span>
+                </div>
+                <div class="schedule-stat">
+                  <span class="stat-label">Est. vs Logged Hours</span>
+                  <span class="stat-value" id="block_var_${block.id}">0.0h logged</span>
+                </div>
+              </div>
+
+              <!-- Block Overview Summary (Grounded in Plan, toggleable via top bar) -->
+              <div class="block-summary-grid">
+                <div class="summary-box">
+                  <div class="summary-box-title">🛠 What Is Being Done (${block.code})</div>
+                  <p>${block.summaryWhatWeDo}</p>
+                </div>
+                <div class="summary-box target-box">
+                  <div class="summary-box-title">🎯 Target Deliverables & Outcome</div>
+                  <p>${block.targetToAchieve}</p>
+                </div>
+                <div class="summary-box learn-box">
+                  <div class="summary-box-title">🧠 Key Concepts Covered (from Plan)</div>
+                  <ul>${learnListHtml}</ul>
+                </div>
+              </div>
+
+              ${block.systemIntro ? `<div class="info-callout">${block.systemIntro}</div>` : ""}
+
+              <div class="task-categories-stack">
+                ${categoriesHtml}
+              </div>
+
+              ${block.id === "F" ? `
+                <div class="info-callout">
+                  <strong>💥 Chaos Tests Link:</strong> Tier 1 (6 must-have tests) count toward Block F completion. Tick them in the <a href="#chaos">Chaos Tests section below ↓</a>.
+                </div>
+              ` : ""}
+
+              ${block.doneWhen ? `
+                <div class="done-when-callout">
+                  <strong>✅ Done when:</strong> ${block.doneWhen}
+                </div>
+              ` : ""}
+
+              ${checkpointHtml}
+
+              <div class="block-footer-grid">
+                <div class="hours-logger-box">
+                  <div class="input-group">
+                    <label for="actual_hrs_${block.id}">⏱ Hours Logged for ${block.code}</label>
+                    <input type="number" id="actual_hrs_${block.id}" min="0" max="300" step="0.5" value="${meta.actualHours}" oninput="updateBlockActualHours('${block.id}', this.value)" />
+                  </div>
+                  <div style="font-size:11.5px; color:var(--text-secondary);" id="actual_hrs_hint_${block.id}">
+                    Estimated: ~${block.estHours}h
+                  </div>
+                </div>
+
+                <div class="notes-box">
+                  <label for="notes_${block.id}">
+                    <span>📝 Engineering Scratchpad & Notes (${block.code})</span>
+                    <span style="font-weight:400; font-size:11px; color:var(--text-muted);">Auto-saved</span>
+                  </label>
+                  <textarea id="notes_${block.id}" placeholder="${block.notesPlaceholder}" oninput="updateBlockNotes('${block.id}', this.value)">${escapeHtml(meta.notes || "")}</textarea>
+                </div>
+              </div>
+            </div>
+          </article>
+        `;
+      }).join("");
+    }
+
+    function escapeHtml(str) {
+      return String(str)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;");
+    }
+
+    /*************************************************************************
+     * REACTIVE UI UPDATE ENGINE
+     *************************************************************************/
+    function statusBadgeClass(status) {
+      if (status === "Completed") return "badge-success";
+      if (status === "In Progress") return "badge-info";
+      if (status === "Slipped") return "badge-danger";
+      return "badge-neutral";
+    }
+
+    function renderNowSpotlight(proj, currentActiveBlock) {
+      const nowEl = document.getElementById("nowBanner");
+      if (!nowEl) return;
+
+      const w = proj.currentCalWeek;
+      const finalProj = proj.blockProjections["Buffer"];
+
+      if (proj.today < proj.startDate) {
+        nowEl.innerHTML = `
+          <div>
+            <div class="now-kicker">Upcoming Plan Start</div>
+            <div class="now-title">Starts ${formatShortDate(proj.startDate)}</div>
+            <div class="now-sub">Week 1 begins on your configured Plan Start Date. Projected finish at ${proj.weeklyVelocity.toFixed(1)}h/wk: <strong>${formatShortDate(finalProj.projectedFinish)}</strong>.</div>
+          </div>
+          <a class="btn btn-primary" href="#block_card_A" onclick="openAndScrollToBlock('A')">Open Block A ↓</a>
+        `;
+        return;
+      }
+
+      if (w > 18) {
+        nowEl.innerHTML = `
+          <div>
+            <div class="now-kicker">Calendar Status</div>
+            <div class="now-title">Past the 18-Week Calendar Window (Week ${w})</div>
+            <div class="now-sub">Active focus: <strong>${currentActiveBlock.code} (${currentActiveBlock.shortTitle})</strong> · Projected finish at ${proj.weeklyVelocity.toFixed(1)}h/wk: <strong>${formatShortDate(finalProj.projectedFinish)}</strong>.</div>
+          </div>
+          <a class="btn btn-primary" href="#block_card_${currentActiveBlock.id}" onclick="openAndScrollToBlock('${currentActiveBlock.id}')">Open ${currentActiveBlock.code} ↓</a>
+        `;
+        return;
+      }
+
+      const calBlock = PLAN_BLOCKS.find((b) => w >= b.weeks[0] && w <= b.weeks[1]) || currentActiveBlock;
+      const calStats = proj.blockProjections[calBlock.id].stats;
+
+      let subMilestoneHtml = "";
+      if (calBlock.id === "F") {
+        const subId = w <= 12 ? "f_sub_1" : w === 13 ? "f_sub_2" : w === 14 ? "f_sub_4" : "f_sub_5";
+        const subItem = calBlock.categories[0].items.find((i) => i.id === subId);
+        if (subItem) {
+          subMilestoneHtml = `<div style="margin-top:6px; font-size:12.5px; color:var(--text-primary);"><strong>This week's Block F sub-milestone:</strong> ${subItem.html}</div>`;
+        }
+      }
+
+      nowEl.innerHTML = `
+        <div style="flex:1; min-width:240px;">
+          <div class="now-kicker">This Week · Calendar Week ${w} of 18</div>
+          <div class="now-title">${calBlock.code}: ${calBlock.shortTitle}</div>
+          <div class="now-sub">${calBlock.shortFocus} · <strong>${calStats.completed}/${calStats.total} items done</strong> (${calStats.pct.toFixed(0)}%)</div>
+          ${subMilestoneHtml}
+        </div>
+        <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
+          <a class="btn btn-primary" href="#block_card_${calBlock.id}" onclick="openAndScrollToBlock('${calBlock.id}')">Open ${calBlock.code} ↓</a>
+        </div>
+      `;
+    }
+
+    function renderSidebarNav(proj, currentActiveBlock) {
+      const navEl = document.getElementById("sideNav");
+      if (!navEl) return;
+
+      const blockLinksHtml = PLAN_BLOCKS.map((b) => {
+        const bp = proj.blockProjections[b.id];
+        const isCurrent = currentActiveBlock && currentActiveBlock.id === b.id;
+        const label = b.id === "Buffer" ? "Buffer (Wk 18)" : `Block ${b.id}`;
+        return `
+          <a href="#block_card_${b.id}" class="${isCurrent ? "active-nav" : ""}" onclick="openAndScrollToBlock('${b.id}')">
+            <span>${label}</span>
+            <span class="pct">${bp.stats.pct.toFixed(0)}%</span>
+          </a>
+        `;
+      }).join("");
+
+      navEl.innerHTML = `
+        <a href="#overview"><span>Overview</span></a>
+        <a href="#decisions"><span>Week 1 Decisions</span></a>
+        <a href="#timeline"><span>Timeline & Checkpoints</span></a>
+        <div class="sep">Execution Blocks</div>
+        ${blockLinksHtml}
+        <div class="sep">Verification & Rules</div>
+        <a href="#chaos"><span>Chaos Tests</span></a>
+        <a href="#ref"><span>Reference & Cut Order</span></a>
+      `;
+    }
+
+    function refreshCalculationsAndUI() {
+      const proj = computeScheduleProjections();
+
+      // 1. Schedule Bar summary pills
+      const monFriPerDay = (proj.weekdayHrs / 5).toFixed(1);
+      const satSunPerDay = (proj.weekendHrs / 2).toFixed(1);
+      document.getElementById("weeklyVelocityDisplay").textContent = `${proj.weeklyVelocity.toFixed(1)} hrs/wk`;
+      document.getElementById("dailySplitDisplay").textContent = `${monFriPerDay}h/day M–F · ${satSunPerDay}h/day Sat–Sun`;
+
+      const finalProj = proj.blockProjections["Buffer"];
+      const totalWeeksAtVelocity = proj.weeklyVelocity > 0 ? (169 / proj.weeklyVelocity).toFixed(1) : "∞";
+      const diffVs18w = finalProj.deltaVs18wDays;
+      let diff18wLabel = "Matches 18w calendar";
+      if (diffVs18w !== null) {
+        if (diffVs18w > 0) diff18wLabel = `+${diffVs18w}d past 18w end (${formatShortDate(proj.baseline18wFinish)})`;
+        else if (diffVs18w < 0) diff18wLabel = `${Math.abs(diffVs18w)}d ahead of 18w end (${formatShortDate(proj.baseline18wFinish)})`;
+      }
+      document.getElementById("baselineFinishDisplay").textContent = `${totalWeeksAtVelocity} wks (169h)`;
+      document.getElementById("velocityComparisonDisplay").textContent = diff18wLabel;
+
+      // 2. Aggregate task & hour counts
+      let grandTotalTasks = 0;
+      let grandCompletedTasks = 0;
+      let grandCompletedEquivHours = 0;
+      let grandActualHours = 0;
+      let completedBlocksCount = 0;
+      let currentActiveBlock = PLAN_BLOCKS[0];
+      let foundActive = false;
+
+      PLAN_BLOCKS.forEach((b) => {
+        const bp = proj.blockProjections[b.id];
+        const meta = appState.blockMeta[b.id];
+        grandTotalTasks += bp.stats.total;
+        grandCompletedTasks += bp.stats.completed;
+        grandCompletedEquivHours += bp.stats.completedHoursEquiv;
+        grandActualHours += Number(meta.actualHours) || 0;
+
+        if (meta.status === "Completed" || bp.stats.pct >= 99.99) {
+          completedBlocksCount++;
+        } else if (!foundActive && (meta.status === "In Progress" || meta.status === "Slipped" || bp.stats.pct < 100)) {
+          currentActiveBlock = b;
+          foundActive = true;
+        }
+      });
+
+      if (!foundActive && completedBlocksCount === PLAN_BLOCKS.length) {
+        currentActiveBlock = PLAN_BLOCKS[PLAN_BLOCKS.length - 1];
+      }
+
+      // Render "This Week" Spotlight Banner & Left Sidebar Nav
+      renderNowSpotlight(proj, currentActiveBlock);
+      renderSidebarNav(proj, currentActiveBlock);
+
+      const overallPct = grandTotalTasks > 0 ? (grandCompletedTasks / grandTotalTasks) * 100 : 0;
+      const totalPlanHours = 169;
+      const remainingPlanHours = Math.max(0, totalPlanHours - grandCompletedEquivHours);
+
+      // Update KPI Card 1: Overall %
+      document.getElementById("kpiOverallPct").textContent = `${overallPct.toFixed(1)}%`;
+      document.getElementById("kpiOverallBar").style.width = `${Math.min(100, overallPct)}%`;
+      document.getElementById("kpiTasksCountBadge").textContent = `${grandCompletedTasks} / ${grandTotalTasks} items`;
+      document.getElementById("kpiBlocksDoneText").textContent = `${completedBlocksCount} of ${PLAN_BLOCKS.length} blocks completed`;
+
+      // Update KPI Card 2: Hours
+      document.getElementById("kpiHoursSummary").textContent = `${grandCompletedEquivHours.toFixed(1)}h / ${totalPlanHours}h`;
+      document.getElementById("kpiHoursBar").style.width = `${Math.min(100, (grandCompletedEquivHours / totalPlanHours) * 100)}%`;
+      document.getElementById("kpiRemainingHoursText").textContent = `${remainingPlanHours.toFixed(1)}h remaining`;
+      document.getElementById("kpiActualLoggedText").textContent = `Logged: ${grandActualHours.toFixed(1)}h`;
+
+      // Update KPI Card 3: Active Block
+      document.getElementById("kpiActiveBlockWeeks").textContent = currentActiveBlock.weeksLabel;
+      document.getElementById("kpiActiveBlockTitle").textContent = `${currentActiveBlock.code}`;
+      document.getElementById("kpiActiveBlockFocus").textContent = currentActiveBlock.shortFocus;
+
+      // Update KPI Card 4: Projected Finish Date
+      document.getElementById("kpiProjectedFinishDate").textContent = formatShortDate(finalProj.projectedFinish);
+      document.getElementById("kpiScheduleDeltaBadge").outerHTML = `<span id="kpiScheduleDeltaBadge">${formatDeltaBadge(finalProj.deltaVsPlannedDays, completedBlocksCount === PLAN_BLOCKS.length)}</span>`;
+      document.getElementById("kpiDaysRemainingText").textContent =
+        finalProj.daysRemaining !== null ? `${finalProj.daysRemaining}d from today` : "Set hrs > 0";
+      document.getElementById("kpiScheduleTargetText").textContent = `18w cal end: ${formatShortDate(proj.baseline18wFinish)}`;
+
+      // Update KPI Card 5: API Spend
+      const spend = Math.max(0, Number(appState.apiSpend) || 0);
+      const spendPct = Math.min(100, (spend / 250) * 100);
+      document.getElementById("kpiSpendBar").style.width = `${spendPct}%`;
+      document.getElementById("kpiSpendRemainingText").textContent =
+        spend <= 250 ? `$${(250 - spend).toFixed(0)} under cap` : `$${(spend - 250).toFixed(0)} over cap!`;
+      const spendBadge = document.getElementById("kpiSpendStatusBadge");
+      if (spend > 250) {
+        spendBadge.className = "badge badge-danger";
+        spendBadge.textContent = "Over $250 Cap";
+      } else if (spend >= 180) {
+        spendBadge.className = "badge badge-warning";
+        spendBadge.textContent = "Near $250 Cap";
+      } else {
+        spendBadge.className = "badge badge-success";
+        spendBadge.textContent = "Within $250 Cap";
+      }
+
+      // 3. Checkpoints 1, 2 & Final Launch Strip
+      const cp1 = proj.blockProjections["B"];
+      const cp2 = proj.blockProjections["D"];
+      const cp1Passed = !!appState.checkedItems["cp1_passed"] || cp1.stats.pct >= 99.99;
+      const cp2Passed = !!appState.checkedItems["cp2_passed"] || cp2.stats.pct >= 99.99;
+
+      document.getElementById("cp1ProjectedDate").textContent = formatShortDate(cp1.projectedFinish);
+      document.getElementById("cp1DeltaBadge").innerHTML = formatDeltaBadge(cp1.deltaVsPlannedDays, cp1Passed);
+
+      const cp1EstCum = 19 + 22; // Blocks A + B = 41h
+      const cp1ActualCum = (Number(appState.blockMeta["A"].actualHours) || 0) + (Number(appState.blockMeta["B"].actualHours) || 0);
+      const cp1Overrun = cp1ActualCum - cp1EstCum;
+      const cp1AlertEl = document.getElementById("cp1VarianceAlert");
+      if (cp1Passed) {
+        cp1AlertEl.innerHTML = `<span style="color:var(--success);">✓ Checkpoint 1 marked passed (${cp1ActualCum.toFixed(1)}h logged).</span>`;
+      } else if (cp1Overrun > 4 || (cp1.deltaVsPlannedDays && cp1.deltaVsPlannedDays > 4)) {
+        cp1AlertEl.innerHTML = `<span style="color:var(--warning);">⚠️ Variance Triggered: Behind by &gt;4h (${cp1ActualCum.toFixed(1)}h logged vs ${cp1EstCum}h est). Action: Skip Decoding AI Lesson 8 extras; keep only record/replay. Never skip tracing.</span>`;
+      } else {
+        cp1AlertEl.innerHTML = `<span style="color:var(--success);">✓ Blocks A+B Logged: ${cp1ActualCum.toFixed(1)}h / ${cp1EstCum}h est (Calendar end: ${formatShortDate(cp1.baseline18wDate)})</span>`;
+      }
+
+      document.getElementById("cp2ProjectedDate").textContent = formatShortDate(cp2.projectedFinish);
+      document.getElementById("cp2DeltaBadge").innerHTML = formatDeltaBadge(cp2.deltaVsPlannedDays, cp2Passed);
+      const killAtEveryStepPassed = !!appState.checkedItems["d_build_5"];
+      const restartSurvivalPassed = !!appState.checkedItems["d_build_7"];
+      const cp2AlertEl = document.getElementById("cp2VarianceAlert");
+      if (cp2Passed || killAtEveryStepPassed) {
+        cp2AlertEl.innerHTML = `<span style="color:var(--success);">✓ Checkpoint 2 Gate: Kill-at-every-step test passed! ${restartSurvivalPassed ? "(Step 7 restart-survival also passed ✓)" : "(Step 7 restart-survival still pending)"}</span>`;
+      } else {
+        cp2AlertEl.innerHTML = `<span style="color:var(--text-secondary);">⏳ Checkpoint 2 Gate: Requires the kill-at-every-step test (Block D, Step 5) to pass before moving on.</span>`;
+      }
+
+      document.getElementById("launchProjectedDate").textContent = formatShortDate(finalProj.projectedFinish);
+      document.getElementById("launchDeltaBadge").innerHTML = formatDeltaBadge(finalProj.deltaVsPlannedDays, finalProj.stats.pct >= 99.99);
+
+      // 4. Timeline at a Glance Table (with BOTH Calendar End & At Your Pace + Live Projected) & Individual Block Cards
+      const timelineRowsHtml = [];
+      const activeFilter = document.getElementById("blockFilterSelect").value;
+
+      PLAN_BLOCKS.forEach((block) => {
+        const bp = proj.blockProjections[block.id];
+        const meta = appState.blockMeta[block.id];
+        const actualHrs = Number(meta.actualHours) || 0;
+        const varianceHrs = actualHrs - block.estHours;
+
+        timelineRowsHtml.push(`
+          <tr>
+            <td><a href="#block_card_${block.id}" onclick="openAndScrollToBlock('${block.id}')"><strong>${block.id}</strong></a></td>
+            <td style="font-family:var(--font-mono); white-space:nowrap;">${block.weeksLabel.replace("Weeks ", "").replace("Week ", "")}</td>
+            <td>${block.shortFocus}</td>
+            <td style="font-family:var(--font-mono);">~${block.estHours}h</td>
+            <td style="font-family:var(--font-mono);">${actualHrs.toFixed(1)}h</td>
+            <td style="font-family:var(--font-mono); white-space:nowrap;">${formatShortDate(bp.baseline18wDate)}</td>
+            <td style="font-family:var(--font-mono); white-space:nowrap;">${formatShortDate(bp.plannedFinish)}</td>
+            <td style="font-family:var(--font-mono); white-space:nowrap;">${formatShortDate(bp.projectedFinish)}</td>
+            <td>
+              <span class="badge ${statusBadgeClass(meta.status)}">${meta.status}</span>
+              <span style="font-family:var(--font-mono); font-size:11px; color:var(--text-secondary); margin-left:4px;">${bp.stats.pct.toFixed(0)}%</span>
+            </td>
+          </tr>
+        `);
+
+        // Update Block Card DOM
+        const cardEl = document.getElementById(`block_card_${block.id}`);
+        if (cardEl) {
+          cardEl.classList.toggle("active-block", currentActiveBlock.id === block.id);
+          cardEl.classList.toggle("slipped-block", meta.status === "Slipped");
+          if (activeFilter !== "all" && meta.status !== activeFilter) {
+            cardEl.style.display = "none";
+          } else {
+            cardEl.style.display = "";
+          }
+        }
+
+        const hdrTarget = document.getElementById(`block_hdr_target_${block.id}`);
+        if (hdrTarget) hdrTarget.textContent = `Cal: ${formatShortDate(bp.baseline18wDate)} · Pace: ${formatShortDate(bp.projectedFinish)}`;
+
+        const hdrDelta = document.getElementById(`block_hdr_delta_${block.id}`);
+        if (hdrDelta) hdrDelta.innerHTML = formatDeltaBadge(bp.deltaVsPlannedDays, bp.stats.pct >= 99.99 || meta.status === "Completed");
+
+        const statusBadge = document.getElementById(`status_badge_${block.id}`);
+        if (statusBadge) {
+          statusBadge.className = `badge ${statusBadgeClass(meta.status)}`;
+          statusBadge.textContent = meta.status;
+        }
+
+        const statusSelect = document.getElementById(`status_select_${block.id}`);
+        if (statusSelect && statusSelect.value !== meta.status) {
+          statusSelect.value = meta.status;
+        }
+
+        const pctText = document.getElementById(`block_pct_text_${block.id}`);
+        if (pctText) pctText.textContent = `${bp.stats.pct.toFixed(0)}% (${bp.stats.completed}/${bp.stats.total})`;
+
+        const pctBar = document.getElementById(`block_pct_bar_${block.id}`);
+        if (pctBar) {
+          pctBar.style.width = `${bp.stats.pct}%`;
+          pctBar.classList.toggle("ok", bp.stats.pct >= 99.99);
+        }
+
+        const calEl = document.getElementById(`block_cal_${block.id}`);
+        if (calEl) calEl.textContent = formatShortDate(bp.baseline18wDate);
+
+        const winEl = document.getElementById(`block_win_${block.id}`);
+        if (winEl) winEl.textContent = `${formatShortDate(bp.plannedStart)} → ${formatShortDate(bp.plannedFinish)}`;
+
+        const projEl = document.getElementById(`block_proj_${block.id}`);
+        if (projEl) projEl.textContent = formatShortDate(bp.projectedFinish);
+
+        const remHrsEl = document.getElementById(`block_rem_hrs_${block.id}`);
+        if (remHrsEl) remHrsEl.textContent = `${bp.stats.remainingHoursEquiv.toFixed(1)}h left of ~${block.estHours}h`;
+
+        const varEl = document.getElementById(`block_var_${block.id}`);
+        const hintEl = document.getElementById(`actual_hrs_hint_${block.id}`);
+        if (varEl) {
+          if (actualHrs === 0) {
+            varEl.textContent = `0.0h logged (~${block.estHours}h est)`;
+            varEl.style.color = "var(--text-secondary)";
+          } else if (varianceHrs > 0) {
+            varEl.textContent = `${actualHrs.toFixed(1)}h (+${varianceHrs.toFixed(1)}h over est)`;
+            varEl.style.color = varianceHrs > 4 ? "var(--danger)" : "var(--warning)";
+          } else {
+            varEl.textContent = `${actualHrs.toFixed(1)}h (${varianceHrs.toFixed(1)}h vs est)`;
+            varEl.style.color = "var(--success)";
+          }
+        }
+        if (hintEl) {
+          hintEl.textContent = `Estimated: ~${block.estHours}h · Logged: ${actualHrs.toFixed(1)}h`;
+        }
+      });
+
+      document.getElementById("timelineGlanceBody").innerHTML = timelineRowsHtml.join("");
+
+      // 5. Chaos Matrix Progress Badge
+      let chaosPassed = 0;
+      const totalChaos = CHAOS_TIER_1.length + CHAOS_TIER_2.length;
+      CHAOS_TIER_1.forEach((c) => {
+        const isChecked = !!appState.checkedItems[c.id];
+        if (isChecked) chaosPassed++;
+        const statusCell = document.getElementById(`status_${c.id}`);
+        if (statusCell) {
+          statusCell.innerHTML = isChecked
+            ? '<span class="badge badge-success">✓ Verified</span>'
+            : '<span class="badge badge-neutral">Pending</span>';
+        }
+      });
+      CHAOS_TIER_2.forEach((c) => {
+        if (appState.checkedItems[c.id]) chaosPassed++;
+      });
+      const chaosBadge = document.getElementById("chaosProgressBadge");
+      if (chaosBadge) {
+        chaosBadge.textContent = `${chaosPassed} / ${totalChaos} Passed`;
+      }
+    }
+
+    /*************************************************************************
+     * USER INTERACTION HANDLERS
+     *************************************************************************/
+    window.openAndScrollToBlock = function (blockId) {
+      const meta = appState.blockMeta[blockId];
+      if (meta && meta.collapsed) {
+        meta.collapsed = false;
+        const card = document.getElementById(`block_card_${blockId}`);
+        if (card) card.classList.remove("collapsed");
+        saveState();
+      }
+    };
+
+    window.toggleCheckItem = function (itemId, isChecked) {
+      appState.checkedItems[itemId] = isChecked;
+      const listItems = document.querySelectorAll(`[data-item-id="${itemId}"]`);
+      listItems.forEach((li) => li.classList.toggle("completed", isChecked));
+
+      PLAN_BLOCKS.forEach((block) => {
+        const stats = getBlockTaskStats(block);
+        const meta = appState.blockMeta[block.id];
+        if (stats.completed === stats.total && stats.total > 0) {
+          meta.status = "Completed";
+        } else if (stats.completed > 0 && meta.status === "Not Started") {
+          meta.status = "In Progress";
+        } else if (stats.completed === 0 && meta.status === "Completed") {
+          meta.status = "Not Started";
+        }
+      });
+
+      saveState();
+      refreshCalculationsAndUI();
+    };
+
+    window.updateBlockStatus = function (blockId, newStatus) {
+      if (appState.blockMeta[blockId]) {
+        appState.blockMeta[blockId].status = newStatus;
+        saveState();
+        refreshCalculationsAndUI();
+      }
+    };
+
+    window.updateBlockActualHours = function (blockId, value) {
+      if (appState.blockMeta[blockId]) {
+        appState.blockMeta[blockId].actualHours = Math.max(0, Number(value) || 0);
+        saveState();
+        refreshCalculationsAndUI();
+      }
+    };
+
+    window.updateBlockNotes = function (blockId, text) {
+      if (appState.blockMeta[blockId]) {
+        appState.blockMeta[blockId].notes = text;
+        saveState();
+      }
+    };
+
+    window.toggleBlockCollapse = function (blockId) {
+      const meta = appState.blockMeta[blockId];
+      if (!meta) return;
+      meta.collapsed = !meta.collapsed;
+      const card = document.getElementById(`block_card_${blockId}`);
+      if (card) card.classList.toggle("collapsed", meta.collapsed);
+      saveState();
+    };
+
+    window.handleBlockHeaderClick = function (event, blockId) {
+      toggleBlockCollapse(blockId);
+    };
+
+    function applyTheme(theme) {
+      document.documentElement.setAttribute("data-theme", theme);
+      appState.theme = theme;
+    }
+
+    function applyDeepDiveVisibility(show) {
+      appState.showDeepDives = show;
+      document.body.classList.toggle("hide-deep-dives", !show);
+      const btn = document.getElementById("toggleDeepDiveBtn");
+      if (btn) {
+        btn.textContent = show ? "📖 Summaries: ON" : "📖 Summaries: OFF";
+      }
+    }
+
+    function initEventListeners() {
+      const startInput = document.getElementById("startDateInput");
+      const wdInput = document.getElementById("weekdayHoursInput");
+      const weInput = document.getElementById("weekendHoursInput");
+      const spendInput = document.getElementById("apiSpendInput");
+
+      startInput.value = appState.schedule.startDate;
+      wdInput.value = appState.schedule.weekdayHours;
+      weInput.value = appState.schedule.weekendHours;
+      spendInput.value = appState.apiSpend;
+
+      startInput.addEventListener("input", (e) => {
+        appState.schedule.startDate = e.target.value || getDefaultStartDate();
+        saveState();
+        refreshCalculationsAndUI();
+      });
+
+      wdInput.addEventListener("input", (e) => {
+        appState.schedule.weekdayHours = Math.max(0, Number(e.target.value) || 0);
+        saveState();
+        refreshCalculationsAndUI();
+      });
+
+      weInput.addEventListener("input", (e) => {
+        appState.schedule.weekendHours = Math.max(0, Number(e.target.value) || 0);
+        saveState();
+        refreshCalculationsAndUI();
+      });
+
+      document.getElementById("set18wPaceBtn").addEventListener("click", () => {
+        appState.schedule.weekdayHours = 5.5;
+        appState.schedule.weekendHours = 4;
+        wdInput.value = 5.5;
+        weInput.value = 4;
+        saveState();
+        refreshCalculationsAndUI();
+      });
+
+      spendInput.addEventListener("input", (e) => {
+        appState.apiSpend = Math.max(0, Number(e.target.value) || 0);
+        saveState();
+        refreshCalculationsAndUI();
+      });
+
+      document.getElementById("blockFilterSelect").addEventListener("change", () => {
+        refreshCalculationsAndUI();
+      });
+
+      // Summaries toggle
+      document.getElementById("toggleDeepDiveBtn").addEventListener("click", () => {
+        applyDeepDiveVisibility(!appState.showDeepDives);
+        saveState();
+      });
+
+      // Theme toggle
+      document.getElementById("themeToggleBtn").addEventListener("click", () => {
+        const nextTheme = appState.theme === "dark" ? "light" : "dark";
+        applyTheme(nextTheme);
+        saveState();
+      });
+
+      // Expand / Collapse All
+      document.getElementById("expandAllBtn").addEventListener("click", () => {
+        PLAN_BLOCKS.forEach((b) => {
+          appState.blockMeta[b.id].collapsed = false;
+          const card = document.getElementById(`block_card_${b.id}`);
+          if (card) card.classList.remove("collapsed");
+        });
+        saveState();
+      });
+
+      document.getElementById("collapseAllBtn").addEventListener("click", () => {
+        PLAN_BLOCKS.forEach((b) => {
+          appState.blockMeta[b.id].collapsed = true;
+          const card = document.getElementById(`block_card_${b.id}`);
+          if (card) card.classList.add("collapsed");
+        });
+        saveState();
+      });
+
+      // Export JSON
+      document.getElementById("exportJsonBtn").addEventListener("click", () => {
+        const dataStr = JSON.stringify(appState, null, 2);
+        const blob = new Blob([dataStr], { type: "application/json" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        const dateStamp = new Date().toISOString().slice(0, 10);
+        a.href = url;
+        a.download = `agentic-ai-plan-progress-${dateStamp}.json`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      });
+
+      // Import JSON
+      const fileInput = document.getElementById("importFileInput");
+      document.getElementById("importJsonBtn").addEventListener("click", () => {
+        fileInput.click();
+      });
+
+      fileInput.addEventListener("change", (e) => {
+        const file = e.target.files && e.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = (evt) => {
+          try {
+            const imported = JSON.parse(evt.target.result);
+            if (!imported || typeof imported !== "object") {
+              alert("Invalid JSON backup file.");
+              return;
+            }
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(imported));
+            appState = loadState();
+            applyTheme(appState.theme || "dark");
+            applyDeepDiveVisibility(appState.showDeepDives !== false);
+            startInput.value = appState.schedule.startDate;
+            wdInput.value = appState.schedule.weekdayHours;
+            weInput.value = appState.schedule.weekendHours;
+            spendInput.value = appState.apiSpend;
+            renderStaticLists();
+            renderBlockCards();
+            refreshCalculationsAndUI();
+            saveState();
+          } catch (err) {
+            alert("Failed to parse JSON file: " + err.message);
+          } finally {
+            fileInput.value = "";
+          }
+        };
+        reader.readAsText(file);
+      });
+
+      // Reset Button
+      document.getElementById("resetBtn").addEventListener("click", () => {
+        if (confirm("Reset all checked tasks, logged hours, and notes back to initial defaults?")) {
+          localStorage.removeItem(STORAGE_KEY);
+          appState = createDefaultState();
+          applyTheme(appState.theme);
+          applyDeepDiveVisibility(appState.showDeepDives);
+          startInput.value = appState.schedule.startDate;
+          wdInput.value = appState.schedule.weekdayHours;
+          weInput.value = appState.schedule.weekendHours;
+          spendInput.value = appState.apiSpend;
+          renderStaticLists();
+          renderBlockCards();
+          refreshCalculationsAndUI();
+          saveState();
+        }
+      });
+    }
+
+    // Boot Application
+    (function init() {
+      applyTheme(appState.theme || "dark");
+      applyDeepDiveVisibility(appState.showDeepDives !== false);
+      renderStaticLists();
+      renderBlockCards();
+      initEventListeners();
+      refreshCalculationsAndUI();
+    })();
+  </script>
+</body>
+</html>
